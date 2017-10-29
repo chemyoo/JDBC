@@ -1,0 +1,22 @@
+package com.chemyoo.utils;
+
+import java.io.*;
+
+public class ReadFileToStream {
+
+    InputStream inputStream;
+    public ReadFileToStream(String filePath){
+        try
+        {
+            //读取文件为文件流
+            FileInputStream fileInput = new FileInputStream(filePath);
+            inputStream = new BufferedInputStream(fileInput);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+}
