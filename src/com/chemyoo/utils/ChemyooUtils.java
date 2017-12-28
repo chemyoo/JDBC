@@ -24,6 +24,8 @@ public class ChemyooUtils {
 	private static String MAC_ADDR_STR = LocalMac.Mac.getInstanse().replace("-", "");
 	
 	private static final long MILLS_OF_DAY = 1000*60*60*24;
+	
+	private ChemyooUtils(){};
 	/**
 	 * use to judge the collection is empty or not
 	 * @param collection

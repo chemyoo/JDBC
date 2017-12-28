@@ -22,6 +22,7 @@ public class LocalMac
 	public static class Mac
 	{
 		private static StringBuffer instanse = null;
+		private Mac() {}
 		public static String getInstanse() 
 		{
 			synchronized (Mac.class) 

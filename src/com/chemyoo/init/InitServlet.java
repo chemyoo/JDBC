@@ -2,6 +2,7 @@ package com.chemyoo.init;
 
 import com.chemyoo.connect.pool.ConnectionPoolsManager;
 import com.chemyoo.connect.pool.ConnectionPools;
+import com.chemyoo.utils.LocalMac;
 import com.chemyoo.utils.WebRoot;
 import org.apache.log4j.Logger;
 
@@ -14,7 +15,11 @@ import java.util.*;
 
 public class InitServlet extends HttpServlet{
 
-    private Logger logger = Logger.getLogger(this.getClass());
+    /**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = -1630033657517767460L;
+	private Logger logger = Logger.getLogger(this.getClass());
 
     public InitServlet(){}
 
