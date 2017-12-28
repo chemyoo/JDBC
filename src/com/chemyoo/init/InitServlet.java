@@ -30,7 +30,7 @@ public class InitServlet extends HttpServlet{
         logger.info("设置-->"+webAppRootKey+" = "+webRoot);
 
         //Statement stm=null;
-        Properties DbProps = ConnectionPools.DbProps;
+        Properties DbProps = ConnectionPoolsManager.DbProps;
         boolean isConnected = testConnectDataBaseAndKeepIsActive(DbProps);
 
         logger.info(DbProps.getProperty("url")+" 数据库连接"+(isConnected?"成功！" : "失败！"));
@@ -120,6 +120,7 @@ public class InitServlet extends HttpServlet{
         try {
             Class.forName(props.getProperty("driverClassName"));
             conn = DriverManager.getConnection(url,user,password);
+            
             if (conn != null)
             {
                 isConnected = true;

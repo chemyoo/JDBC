@@ -1,6 +1,5 @@
 package com.chemyoo.connect.pool;
 
-import com.chemyoo.utils.PropertiesUtil;
 import javax.sql.DataSource;
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
@@ -9,6 +8,8 @@ import java.util.*;
 import java.util.logging.Logger;
 
 public class ConnectionPools implements DataSource{
+	
+	private static ConnectionPools pools;
 
     private static volatile Vector<ConnectionObject> connections = new Vector<ConnectionObject>();
     public static Properties DbProps;
@@ -25,8 +26,7 @@ public class ConnectionPools implements DataSource{
     private Logger logger = Logger.getLogger(getClass().getName());
 
     static {
-        String webRoot = System.getProperty("web.root");
-        DbProps = PropertiesUtil.getProperties(webRoot+"WEB-INF/classes/databaseConfig.properties");
+        DbProps = ConnectionPoolsManager.DbProps;
         maxActive = Integer.parseInt(DbProps.getProperty("maxActive"));
         maxIdle = Integer.parseInt(DbProps.getProperty("maxIdle"));
         maxWait = Integer.parseInt(DbProps.getProperty("maxWait"));
@@ -36,7 +36,16 @@ public class ConnectionPools implements DataSource{
         timerTask = Integer.parseInt(DbProps.getProperty("timerTask"));
     }
 
-    public ConnectionPools ()
+    public static ConnectionPools getPools()
+    {
+    	if(pools == null)
+    	{
+    		pools = new ConnectionPools();
+    	}
+    	return pools;
+    }
+    
+    private ConnectionPools()
     {
         Timer timer = new Timer();
         timer.schedule(new TimerTask() {
