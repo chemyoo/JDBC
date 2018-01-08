@@ -138,16 +138,20 @@ public class ConnectionPools implements DataSource{
         if(timeout<10*1000)
             timeout = 10*1000;
         int counts = 0;
-        try {
+        try 
+        {
            do
            {
                counts++;
                if(counts>=6)
                    break;
                wait(timeout);
-           }while ((connection = getConnection())==null);
+           }
+           while ((connection = getConnection())==null);
 
-        } catch (InterruptedException e) {
+        } 
+        catch (InterruptedException e) 
+        {
             e.printStackTrace();
         }
         return connection;
@@ -156,7 +160,8 @@ public class ConnectionPools implements DataSource{
     private synchronized Connection newConnection(boolean isFree){
         // String sql="select count(1) from hr.countries";
         Connection conn = null;
-        try {
+        try 
+        {
             Class.forName(DbProps.getProperty("driverClassName"));
             conn = DriverManager.getConnection(url,user,password);
             if (conn != null)
@@ -188,7 +193,25 @@ public class ConnectionPools implements DataSource{
 
     @Override
     public Connection getConnection(String username, String password) throws SQLException {
-        return null;
+    	Connection conn = null;
+        try 
+        {
+            Class.forName(DbProps.getProperty("driverClassName"));
+            conn = DriverManager.getConnection(url,username,password);
+            if (conn != null)
+            {
+            	if(connections.size()>=maxActive)
+            		this.wait();
+                this.addConnection(conn);
+            }
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } catch (InterruptedException e) {
+			e.printStackTrace();
+		}
+        return conn;
     }
 
     @Override
@@ -226,6 +249,14 @@ public class ConnectionPools implements DataSource{
         return null;
     }
 
+    public synchronized boolean release(ConnectionObject connectionObj)
+    {
+		boolean success = connections.remove(connectionObj);
+    	if(success)
+    		this.notify();
+    	return success;
+    }
+    
     public synchronized void release(int counts) {
         Enumeration<ConnectionObject> allConnections = connections.elements();
         int closeCounts = 0;
@@ -247,6 +278,7 @@ public class ConnectionPools implements DataSource{
                 logger.info("关闭连接："+connectionObject.getConnectionName()+"失败！");
             }
         }
+        this.notifyAll();
     }
 
     public synchronized void releaseAll() {
@@ -263,6 +295,7 @@ public class ConnectionPools implements DataSource{
             }
         }
         connections.removeAllElements();
+        this.notifyAll();
     }
 
     public synchronized <T> List<T> aliasToBean(Class<T> clazz, ResultSet resultSet) throws SQLException, IllegalAccessException, InstantiationException {

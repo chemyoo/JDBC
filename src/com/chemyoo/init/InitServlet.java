@@ -2,7 +2,6 @@ package com.chemyoo.init;
 
 import com.chemyoo.connect.pool.ConnectionPoolsManager;
 import com.chemyoo.connect.pool.ConnectionPools;
-import com.chemyoo.utils.LocalMac;
 import com.chemyoo.utils.WebRoot;
 import org.apache.log4j.Logger;
 

@@ -2,6 +2,8 @@ package com.chemyoo.utils;
 
 public class WebRoot
 {
+	
+	private WebRoot() {}
 	private static String web_root = null;
 
 	/**

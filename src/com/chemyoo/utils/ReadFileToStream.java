@@ -4,7 +4,7 @@ import java.io.*;
 
 public class ReadFileToStream {
 
-    InputStream inputStream;
+    private InputStream inputStream;
     public ReadFileToStream(String filePath){
         try
         {

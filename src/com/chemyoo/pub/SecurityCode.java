@@ -6,6 +6,8 @@ package com.chemyoo.pub;
  * @since 2016-12-19
  */
 public class SecurityCode{
+	
+  private SecurityCode() {};
   public synchronized static String encrypt(String codestr)
   {
 	char[] letter = { 'o', 'p', 'A', 'B', 'C', 'u', 'v', 'w', 'x', 'D', 'G','E','g', 'F', 'I', 'i', 'j','H', 'Q', 'h', 'k', 'l', 'm', 'J',
@@ -45,6 +47,6 @@ public class SecurityCode{
   
   private static boolean emptyString(String str)
   {
-	  return (str==null || str.trim().isEmpty());
+	  return (str == null || str.trim().isEmpty());
   }
 }

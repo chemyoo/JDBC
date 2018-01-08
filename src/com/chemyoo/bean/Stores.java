@@ -4,21 +4,29 @@ import java.math.BigDecimal;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.chemyoo.annotations.Field;
+import com.chemyoo.annotations.NotField;
+import com.chemyoo.annotations.Table;
+
 /**
  * Stores entity. @author MyEclipse Persistence Tools
  */
-
+@Table(name="stores")
 public class Stores implements java.io.Serializable {
 
 	// Fields
-
+	@Field
 	private String pkStore;
+	@Field(name = "store_id")
 	private String storeid;
 	private String storename;
 	private String ts;
 	private BigDecimal dr;
+	@NotField
 	private Set productInfos = new HashSet(0);
+	@NotField
 	private Set checkIns = new HashSet(0);
+	@NotField 
 	private Set checkOuts = new HashSet(0);
 
 	// Constructors
