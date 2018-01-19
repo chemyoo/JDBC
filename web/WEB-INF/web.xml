@@ -36,5 +36,15 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
+     <servlet>
+        <servlet-name>scanPackage</servlet-name>
+        <servlet-class>com.chemyoo.init.ScanPackage</servlet-class>
+         <init-param>
+            <param-name>beanPackage</param-name>
+            <param-value>com.chemyoo.bean</param-value>
+        </init-param>
+        <load-on-startup>2</load-on-startup>
+    </servlet>
 
 </web-app>

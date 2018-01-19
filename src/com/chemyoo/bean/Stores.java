@@ -1,6 +1,6 @@
 package com.chemyoo.bean;
 
-import java.math.BigDecimal;
+import java.io.Serializable;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -12,16 +12,22 @@ import com.chemyoo.annotations.Table;
  * Stores entity. @author MyEclipse Persistence Tools
  */
 @Table(name="stores")
-public class Stores implements java.io.Serializable {
+public class Stores implements Serializable {
 
-	// Fields
-	@Field
+	/**
+	 * serialVersionUID
+	 */
+	private static final long serialVersionUID = 9133466602208515848L;
+	@Field(name = "PKSTORE")
 	private String pkStore;
-	@Field(name = "store_id")
+	@Field(name = "STORE_ID")
 	private String storeid;
+	@Field(name = "STORENAME")
 	private String storename;
+	@Field(name = "TS")
 	private String ts;
-	private BigDecimal dr;
+	@Field(name = "DR")
+	private Integer dr;
 	@NotField
 	private Set productInfos = new HashSet(0);
 	@NotField
@@ -42,7 +48,7 @@ public class Stores implements java.io.Serializable {
 
 	/** full constructor */
 	public Stores(String pkStore, String storeid, String storename, String ts,
-			BigDecimal dr, Set productInfos, Set checkIns, Set checkOuts) {
+			Integer dr, Set productInfos, Set checkIns, Set checkOuts) {
 		this.pkStore = pkStore;
 		this.storeid = storeid;
 		this.storename = storename;
@@ -87,11 +93,11 @@ public class Stores implements java.io.Serializable {
 		this.ts = ts;
 	}
 
-	public BigDecimal getDr() {
+	public Integer getDr() {
 		return this.dr;
 	}
 
-	public void setDr(BigDecimal dr) {
+	public void setDr(Integer dr) {
 		this.dr = dr;
 	}
 
