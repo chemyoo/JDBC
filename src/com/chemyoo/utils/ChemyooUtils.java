@@ -343,4 +343,16 @@ public class ChemyooUtils {
 	{
 		return (char)((int)Math.floor(Math.random()*26)+97);
 	}
+	
+	public static String getLineSeparator() {
+		return System.getProperty("line.separator");
+	}
+
+	public static String getPathSeparator() {
+		return System.getProperty("path.separator");
+	}
+
+	public static String getFileSeparator() {
+		return System.getProperty("file.separator");
+	}
 }
