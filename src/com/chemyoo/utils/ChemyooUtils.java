@@ -2,6 +2,8 @@ package com.chemyoo.utils;
 
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
@@ -355,4 +357,54 @@ public class ChemyooUtils {
 	public static String getFileSeparator() {
 		return System.getProperty("file.separator");
 	}
+	
+	public void note()
+	{
+		String m = null;
+		Date start = TimeUtil.convertStringToDate("yyyy-MM", "2015-01");
+		Date end = TimeUtil.convertStringToDate("yyyy-MM", "2018-02");
+		GregorianCalendar grego1 = new GregorianCalendar();
+		GregorianCalendar grego2 = new GregorianCalendar();
+		grego1.setTime(start);
+		grego2.setTime(end);
+		int y1 = grego1.get(Calendar.YEAR);
+		int y2 = grego2.get(Calendar.YEAR);
+		int m1 = grego1.get(Calendar.MONTH);
+		int m2 = grego2.get(Calendar.MONTH);
+		List<String> monthList = new ArrayList<String>();
+		int loopStart = 0;
+		int loopend = m2 + 1;
+		int year = y2 -y1;
+		if(year >= 1){
+			//开始年月份
+			int loop = 12- m1 - 1;
+			for(int i = 0; i <= loop; i++) {
+				m = (m1+i+1) < 10 ? ("0"+(m1+i+1)) : (""+(m1+i+1));
+				monthList.add(y1+"-"+m);
+			}
+			if(year > 1) {
+				//中间整年月份
+				int loopYear = year - 1;
+				for(int i = 0; i <= loopYear; i++) {
+					for(int j = 1; j < 13; j++) {
+						m = (j) < 10 ? ("0"+(j)) : (""+(j));
+						monthList.add((y1+i+1)+"-"+m);
+					}
+				}
+			}
+		} else {
+			loopStart = m1;
+		}
+		//结束年月份
+		for(int i = loopStart; i < loopend; i++) {
+			monthList.add(y2+"-"+((i+1) < 10 ? ("0"+(i+1)) : (i+1)));
+		}
+//		int months = year * 12 + m2-m1;
+//		for(int i = 0; i<= months; i++){
+//			
+//			monthList.add(TimeUtil.convertDateToString(grego1.getTime(), "yyyy-MM"));
+//			grego1.add(Calendar.MONTH, 1);
+//		}
+	}
+	
 }

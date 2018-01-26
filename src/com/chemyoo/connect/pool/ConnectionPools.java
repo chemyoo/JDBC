@@ -58,7 +58,11 @@ public class ConnectionPools implements DataSource{
                 }
                 if (size() == 0)
                 {
-                    newConnection(true);
+                    try {
+						newConnection(true);
+					} catch (SQLException e) {
+						e.printStackTrace();
+					}
                 }
             }
         }, 12000,(timerTask*1000*60));
@@ -66,14 +70,14 @@ public class ConnectionPools implements DataSource{
     public synchronized void addConnection(Connection connection)
     {
         ConnectionObject conObject = new ConnectionObject(connection,"connection"+connections.size());
-        this.connections.add(conObject);
+        ConnectionPools.connections.add(conObject);
     }
 
     public synchronized void addConnection(Connection connection,boolean isFree)
     {
         ConnectionObject conObject = new ConnectionObject(connection,"connection"+connections.size());
         conObject.setFree(isFree);
-        this.connections.add(conObject);
+        ConnectionPools.connections.add(conObject);
     }
 
     public synchronized int size(){
@@ -93,7 +97,7 @@ public class ConnectionPools implements DataSource{
     }
 
     public synchronized Vector<ConnectionObject> getConnections() throws SQLException {
-        return this.connections;
+        return ConnectionPools.connections;
     }
 
     @Override
@@ -111,7 +115,7 @@ public class ConnectionPools implements DataSource{
                 }
                 else
                 {
-                    this.connections.remove(connection);
+                    ConnectionPools.connections.remove(connection);
                     con = null;
                 }
             }
@@ -157,7 +161,7 @@ public class ConnectionPools implements DataSource{
         return connection;
     }
 
-    private synchronized Connection newConnection(boolean isFree){
+    private synchronized Connection newConnection(boolean isFree) throws SQLException{
         // String sql="select count(1) from hr.countries";
         Connection conn = null;
         try 
@@ -169,8 +173,6 @@ public class ConnectionPools implements DataSource{
                 this.addConnection(conn,isFree);
             }
         } catch (ClassNotFoundException e) {
-            e.printStackTrace();
-        } catch (SQLException e) {
             e.printStackTrace();
         }
         return conn;

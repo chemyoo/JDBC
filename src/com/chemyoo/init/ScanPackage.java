@@ -1,22 +1,33 @@
 package com.chemyoo.init;
 
 import java.io.File;
+import java.sql.Connection;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+import com.chemyoo.annotations.Field;
+import com.chemyoo.annotations.NotField;
+import com.chemyoo.annotations.Table;
+import com.chemyoo.connect.pool.ConnectionPoolsManager;
+import com.chemyoo.entiry.ColunmEntiry;
+import com.chemyoo.entiry.TableEntiry;
 import com.chemyoo.utils.ChemyooUtils;
-import com.chemyoo.utils.ReadFileToStream;
-import com.sun.org.apache.bcel.internal.util.ClassLoader;
 
 /** 
  * @author 作者 : jianqing.liu
  * @version 创建时间：2018年1月8日 上午10:45:46 
+ * @param <T>
  * @since 2018年1月8日 上午10:45:46 
  * @description 类说明 
  */
-public class ScanPackage extends HttpServlet {
+public class ScanPackage<T> extends HttpServlet {
 
 	/**
 	 * serialVersionUID
@@ -27,18 +38,122 @@ public class ScanPackage extends HttpServlet {
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		String beanPath = config.getInitParameter("beanPackage");
-		this.createSql(beanPath);
+		this.scanTables(beanPath);
 	}
 	
-	public void createSql(String beanPath){
+	private void scanTables(String beanPath) throws ServletException{
 		String classPath = Thread.currentThread().getContextClassLoader().getResource("/").getPath();
 		System.err.println(classPath);
 		File file = new File(classPath+beanPath.replace(".", ChemyooUtils.getFileSeparator()));
 		File[] childrenFiles = file.listFiles();
-		for(File f : childrenFiles)
-		{
-			ClassLoader.getSystemResource(f.getPath());
+		try {
+			Class<?> clazz;
+			Class<?> dataType;
+			ColunmEntiry colunm = null;
+			TableEntiry table = null;
+			List<ColunmEntiry> columns = new ArrayList<ColunmEntiry>();
+			List<TableEntiry> tables = new ArrayList<TableEntiry>();
+			for(File f : childrenFiles)
+			{
+				clazz = Class.forName(beanPath+"."+f.getName().replace(".class", ""));
+				Table[] tableAnnotations = clazz.getAnnotationsByType(Table.class);
+				if(tableAnnotations != null && tableAnnotations.length != 0)
+				{
+					table = new TableEntiry();
+					table.setTableName(tableAnnotations[0].name());
+				}
+				else
+				{
+					continue;
+				}
+				java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
+				for(java.lang.reflect.Field field : fields)
+				{
+					NotField notField = field.getAnnotation(NotField.class);
+					Field annotation = field.getAnnotation(Field.class);
+					if(notField != null)
+					{
+						continue;
+					}
+					colunm = new ColunmEntiry();
+					if(annotation != null && !"".equals(annotation.name())) 
+					{
+						colunm.setColunmName(annotation.name());
+						colunm.setPrimaryKey(annotation.primaryKey());
+					}
+					else 
+					{
+						colunm.setColunmName(field.getName());
+					}
+					
+					dataType = field.getType();
+					if(dataType == Integer.class)
+					{
+						colunm.setDataType("int");
+					}
+					else if(dataType == Date.class)
+					{
+						colunm.setDataType("datetime");
+					}
+					else
+					{
+						colunm.setDataType("varchar("+annotation.length()+")");
+					}
+					columns.add(colunm);
+					table.addColunm(colunm);
+				}
+				tables.add(table);
+			}
+			this.createTables(tables);
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		} catch (SecurityException e) {
+			e.printStackTrace();
 		}
 	}
 
+	private void createTables(List<TableEntiry> tables) throws ServletException
+	{
+		if(ChemyooUtils.isNotEmpty(tables)) 
+		{
+			List<ColunmEntiry> colunms = null;
+			StringBuffer strbuff = new StringBuffer();
+			for(TableEntiry table : tables)
+			{
+				colunms = table.getColunms();
+				if(ChemyooUtils.isEmpty(colunms)) {
+					strbuff = null;
+					throw new ServletException("The table entiry not include any field");
+				}
+//				strbuff.append("IF NOT EXSITS()");
+				strbuff.append("create table ");
+				strbuff.append(table.getTableName());
+				strbuff.append("( ");
+				
+				for(ColunmEntiry colunm : colunms)
+				{
+					strbuff.append(ChemyooUtils.getLineSeparator());
+					strbuff.append(colunm.getColunmName());
+					strbuff.append(" ");
+					strbuff.append(colunm.getDataType());
+					strbuff.append(" ");
+					strbuff.append((colunm.isPrimaryKey()) ? "primary key" : "");
+					strbuff.append(",");
+				}
+				strbuff.delete(strbuff.length()-1, strbuff.length());
+				strbuff.append(ChemyooUtils.getLineSeparator());
+				strbuff.append(") ");
+				strbuff.append(ChemyooUtils.getLineSeparator());
+			}
+			System.err.println(strbuff);
+			try {
+				Connection connect = ConnectionPoolsManager.getInstanse().getConnection();
+				connect.setAutoCommit(true);
+				Statement statement = connect.createStatement();
+				statement.execute(strbuff.toString());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+		}
+	}
 }

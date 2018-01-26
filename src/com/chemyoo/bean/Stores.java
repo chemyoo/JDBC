@@ -17,8 +17,9 @@ public class Stores implements Serializable {
 	/**
 	 * serialVersionUID
 	 */
+	@NotField
 	private static final long serialVersionUID = 9133466602208515848L;
-	@Field(name = "PKSTORE")
+	@Field(name = "PKSTORE",primaryKey = true)
 	private String pkStore;
 	@Field(name = "STORE_ID")
 	private String storeid;
