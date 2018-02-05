@@ -15,6 +15,17 @@ public class ReadFileToStream {
             e.printStackTrace();
         }
     }
+    
+    public ReadFileToStream(File file){
+        try
+        {
+            //读取文件为文件流
+            FileInputStream fileInput = new FileInputStream(file);
+            inputStream = new BufferedInputStream(fileInput);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     public InputStream getInputStream() {
         return inputStream;

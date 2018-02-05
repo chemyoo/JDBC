@@ -1,5 +1,9 @@
 package com.chemyoo.utils;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -10,6 +14,10 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import org.apache.tomcat.util.http.fileupload.IOUtils;
+
+import com.sun.org.glassfish.gmbal.Description;
 
 
 /**
@@ -357,6 +365,78 @@ public class ChemyooUtils {
 	public static String getFileSeparator() {
 		return System.getProperty("file.separator");
 	}
+	
+	/**
+     * 将文件头转换成16进制字符串
+     * 
+     * @param 原生byte
+     * @return 16进制字符串
+     */
+    private static String bytesToHexString(byte[] b){
+         
+        StringBuilder stringBuilder = new StringBuilder();   
+        if (b == null || b.length <= 0) {   
+            return null;   
+        }   
+        for (int i = 0; i < b.length; i++) {   
+            int v = b[i] & 0xFF;   
+            String str = Integer.toHexString(v);   
+            if (str.length() < 2) {   
+                stringBuilder.append(0);   
+            }   
+            stringBuilder.append(str);   
+        }   
+        return stringBuilder.toString();   
+    }
+    
+    /**
+     * 得到文件头
+     * 
+     * @param filePath 文件路径
+     * @return 文件头
+     * @throws IOException
+     */
+    public static String getFileContent(InputStream inputStream) {
+        byte[] b = new byte[28];
+//        InputStream is = inputStream;
+//        ReadFileToStream reader = new ReadFileToStream(file);
+//        InputStream is = reader.getInputStream();
+        try {
+        	if(inputStream.markSupported()) {
+        		inputStream.mark(0);
+        		inputStream.read(b, 0, 28);
+        		inputStream.reset();
+        	} else {
+        		throw new IOException("this input stream not supports the mark!");
+        	}
+        } catch (IOException e) {
+            e.printStackTrace();
+        } 
+        return bytesToHexString(b);
+    }
+    
+    /**
+     * 得到文件头
+     * 
+     * @param filePath 文件路径
+     * @return 文件头
+     * @throws IOException
+     * @Description 不推荐在读取大文件时使用，此方法需要再次读取内容到内存，当文件流不支持mark时，可用来替代 
+     */
+    @Deprecated
+    public static String getFileContent(File file) {
+        byte[] b = new byte[28];
+        ReadFileToStream reader = new ReadFileToStream(file);
+        InputStream is = reader.getInputStream();
+        try {
+        	is.read(b, 0, 28);
+        } catch (IOException e) {
+            e.printStackTrace();
+        } finally {
+        	IOUtils.closeQuietly(is);
+        }
+        return bytesToHexString(b);
+    }
 	
 	public void note()
 	{
