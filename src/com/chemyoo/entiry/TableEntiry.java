@@ -49,4 +49,11 @@ public class TableEntiry {
 		}
 		this.colunms.add(colunm);
 	}
+	
+	public void addColunms(List<ColunmEntiry> colunms) {
+		if(this.colunms == null) {
+			this.colunms = new ArrayList<ColunmEntiry>();
+		}
+		this.colunms.addAll(colunms);
+	}
 }

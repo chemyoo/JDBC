@@ -1,6 +1,7 @@
 package com.chemyoo.bean;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -26,7 +27,7 @@ public class Stores implements Serializable {
 	@Field(name = "STORENAME")
 	private String storename;
 	@Field(name = "TS")
-	private String ts;
+	private Date ts;
 	@Field(name = "DR")
 	private Integer dr;
 	@NotField
@@ -48,7 +49,7 @@ public class Stores implements Serializable {
 	}
 
 	/** full constructor */
-	public Stores(String pkStore, String storeid, String storename, String ts,
+	public Stores(String pkStore, String storeid, String storename, Date ts,
 			Integer dr, Set productInfos, Set checkIns, Set checkOuts) {
 		this.pkStore = pkStore;
 		this.storeid = storeid;
@@ -86,11 +87,11 @@ public class Stores implements Serializable {
 		this.storename = storename;
 	}
 
-	public String getTs() {
+	public Date getTs() {
 		return this.ts;
 	}
 
-	public void setTs(String ts) {
+	public void setTs(Date ts) {
 		this.ts = ts;
 	}
 
