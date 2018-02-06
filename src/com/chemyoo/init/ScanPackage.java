@@ -5,7 +5,6 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletConfig;
@@ -81,7 +80,6 @@ public class ScanPackage<T> extends HttpServlet {
 	}
 
 	private List<ColunmEntiry> getColunms(Class<?> clazz) {
-		Class<?> dataType;
 		ColunmEntiry colunm = null;
 		List<ColunmEntiry> columns = new ArrayList<ColunmEntiry>();
 		java.lang.reflect.Field[] fields = clazz.getDeclaredFields();
