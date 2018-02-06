@@ -23,7 +23,7 @@ public enum FileType {
     EML("44656C69766572792D646174653A","eml"),
     DBX("CFAD12FEC5FD746F","dbx"),
     PST("2142444E","pst"),
-    XLS_DOC("D0CF11E0","xls_doc"),
+    XLS_DOC("D0CF11E0","xls/doc"),
     MDB("5374616E64617264204A","mdb"),
     WPD("FF575043","wpd"),
     EPS("252150532D41646F6265","eps"),
@@ -35,7 +35,7 @@ public enum FileType {
     WAV("57415645","wav"),
     AVI("41564920","avi"),
     RAM("2E7261FD","ram"),
-    RM("2E524D46","rm/rmvb"),
+    RM("2E524D46","rmvb"),
     MPG("000001BA","mpg"),
     MOV("6D6F6F76","mov"),
     ASF("3026B2758E66CF11","asf"),
@@ -77,7 +77,7 @@ public enum FileType {
 			return UNKNOWN.getName();
 		}
 		String fileType = UNKNOWN.getName();
-		FileType [] values = values();
+		FileType [] values = values(); 
 		String upperValue =  value.toUpperCase();
 		for(FileType type : values) {
 			if(upperValue.startsWith(type.getValue())) {

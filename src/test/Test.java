@@ -24,7 +24,7 @@ public class Test {
         test.changeValue(test.a);
         System.err.println(test.a);
         
-        ReadLocalFiles readFiles = new ReadLocalFiles("E:/", "ctr","jpg","jpeg","zip","rm");
+        ReadLocalFiles readFiles = new ReadLocalFiles("E:/", "docx","jpg","jpeg","zip","xlsx");
         readFiles.setReadOnlyOne();
         File[] files = readFiles.readFiles();
        	if(files == null || files.length == 0)
@@ -51,6 +51,7 @@ public class Test {
     public void changeValue(String a)
     {
         a = "word";
+        this.a = "xml";
     }
     
 }
