@@ -24,22 +24,32 @@ public class Test {
         test.changeValue(test.a);
         System.err.println(test.a);
         
-        ReadLocalFiles readFiles = new ReadLocalFiles("E:/", "docx","jpg","jpeg","zip","xlsx");
-        readFiles.setReadOnlyOne();
+        ReadLocalFiles readFiles = new ReadLocalFiles("E:/", "ctr","jpg","png");
+        //readFiles.setReadOnlyOne();
         File[] files = readFiles.readFiles();
        	if(files == null || files.length == 0)
        	{
        		return;
        	}
-        ReadFileToStream file = new ReadFileToStream(files[0]);
-        InputStream is = file.getInputStream();
-        //读取16进制文件头
-        String filecontent = ChemyooUtils.getFileContent(is);
-        String fileType = FileType.getFileType(filecontent);
+//        ReadFileToStream file = new ReadFileToStream(files[0]);
+//        InputStream is = file.getInputStream();
+//        String filecontent = ChemyooUtils.getFileContent(is);
+//        String fileType = FileType.getFileType(filecontent);
+//        //读取16进制文件头
+//        String filecontent = ChemyooUtils.getFileContent(is);
+//        String fileType = FileType.getFileType(filecontent);
         try {
-			OutputStream out = new FileOutputStream("D:/"+files[0].getName().substring(0, files[0].getName().lastIndexOf(".")+1)+fileType);
-			IOUtils.copy(is, out);
-			IOUtils.closeQuietly(out);
+        	ReadFileToStream fileStream;
+           	InputStream is;
+           	for(File file : files) {
+           		fileStream = new ReadFileToStream(file);
+           		is = fileStream.getInputStream();
+		        String filecontent = ChemyooUtils.getFileContent(is);
+		        String fileType = FileType.getFileType(filecontent);
+           		OutputStream out = new FileOutputStream("D:/ThemeStore/new/"+file.getName().substring(0, file.getName().lastIndexOf(".")+1)+fileType);
+    			IOUtils.copy(is, out);
+    			IOUtils.closeQuietly(out);
+           	}
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 		} catch (IOException e) {
