@@ -92,11 +92,12 @@ public class ScanPackage<T> extends HttpServlet {
 			colunm = new ColunmEntiry();
 			if (annotation != null && !"".equals(annotation.name())) {
 				colunm.setColunmName(annotation.name());
-				colunm.setPrimaryKey(annotation.primaryKey());
 			} else {
 				colunm.setColunmName(field.getName());
+				if(annotation != null) {
+					colunm.setPrimaryKey(annotation.primaryKey());
+				}
 			}
-
 			colunm.setDataType(JavaType.getSqlType(field.getType(), annotation));
 			columns.add(colunm);
 		}
@@ -136,7 +137,6 @@ public class ScanPackage<T> extends HttpServlet {
 				strbuff.append(") ");
 				strbuff.append(ChemyooUtils.getLineSeparator());
 			}
-			System.err.println(strbuff);
 			this.excuteSql(strbuff.toString());
 		}
 	}
@@ -146,7 +146,7 @@ public class ScanPackage<T> extends HttpServlet {
 			Connection connect = ConnectionPoolsManager.getInstanse().getConnection();
 			connect.setAutoCommit(true);
 			Statement statement = connect.createStatement();
-			statement.execute(sql);
+			statement.execute(sql.toUpperCase());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

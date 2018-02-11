@@ -63,10 +63,14 @@ public enum JavaType {
 		String sqlType = "varchar2";
 		if(dataType != null) {
 			JavaType[] values = values();
+			int length = 255;
 			for(JavaType type : values) {
 				if(dataType == type.getClazz()) {
+					if(field != null) {
+						length = field.length();
+					}
 					if(type == JavaType.Char || type == JavaType.String) {
-						sqlType = type.getSqlType() + "(" + field.length() + ")";
+						sqlType = type.getSqlType() + "(" + length + ")";
 					}
 					else if(dataType == type.getClazz()) {
 						sqlType = type.getSqlType();
