@@ -10,6 +10,7 @@ import java.io.OutputStream;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import com.chemyoo.enums.FileType;
+import com.chemyoo.enums.Roles;
 import com.chemyoo.file.ReadLocalFiles;
 import com.chemyoo.utils.ChemyooUtils;
 import com.chemyoo.utils.ReadFileToStream;
@@ -23,6 +24,8 @@ public class Test {
         Test test = new Test();
         test.changeValue(test.a);
         System.err.println(test.a);
+        
+        System.err.println( Roles.findRoleNameByCode(4));
         
         ReadLocalFiles readFiles = new ReadLocalFiles("E:/", "ctr","jpg","png");
         //readFiles.setReadOnlyOne();
@@ -38,23 +41,23 @@ public class Test {
 //        //读取16进制文件头
 //        String filecontent = ChemyooUtils.getFileContent(is);
 //        String fileType = FileType.getFileType(filecontent);
-        try {
-        	ReadFileToStream fileStream;
-           	InputStream is;
-           	for(File file : files) {
-           		fileStream = new ReadFileToStream(file);
-           		is = fileStream.getInputStream();
-		        String filecontent = ChemyooUtils.getFileContent(is);
-		        String fileType = FileType.getFileType(filecontent);
-           		OutputStream out = new FileOutputStream("D:/ThemeStore/new/"+file.getName().substring(0, file.getName().lastIndexOf(".")+1)+fileType);
-    			IOUtils.copy(is, out);
-    			IOUtils.closeQuietly(out);
-           	}
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
+//        try {
+//        	ReadFileToStream fileStream;
+//           	InputStream is;
+//           	for(File file : files) {
+//           		fileStream = new ReadFileToStream(file);
+//           		is = fileStream.getInputStream();
+//		        String filecontent = ChemyooUtils.getFileContent(is);
+//		        String fileType = FileType.getFileType(filecontent);
+//           		OutputStream out = new FileOutputStream("D:/ThemeStore/new/"+file.getName().substring(0, file.getName().lastIndexOf(".")+1)+fileType);
+//    			IOUtils.copy(is, out);
+//    			IOUtils.closeQuietly(out);
+//           	}
+//		} catch (FileNotFoundException e) {
+//			e.printStackTrace();
+//		} catch (IOException e) {
+//			e.printStackTrace();
+//		}
 
     }
 

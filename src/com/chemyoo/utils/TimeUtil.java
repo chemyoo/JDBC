@@ -26,4 +26,5 @@ public class TimeUtil {
 		SimpleDateFormat format = new SimpleDateFormat(pattern);
 		return format.format(date);
 	}
+    
 }

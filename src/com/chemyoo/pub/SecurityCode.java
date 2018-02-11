@@ -10,8 +10,10 @@ public class SecurityCode{
   private SecurityCode() {};
   public synchronized static String encrypt(String codestr)
   {
-	char[] letter = { 'o', 'p', 'A', 'B', 'C', 'u', 'v', 'w', 'x', 'D', 'G','E','g', 'F', 'I', 'i', 'j','H', 'Q', 'h', 'k', 'l', 'm', 'J',
-			'K', 'L', 'P', 'n', 'M', 'N', 'O', 'R', 'S', 'T', 'q', 'r', 'U', 'V', 'W', 'd', 'e', 'f', 'X', 'Y', 'Z', 'a', 'b', 'c', 's', 't', 'y', 'z' };
+	char[] letter = { 'o', 'p', 'A', 'B', 'C', 'u', 'v', 'w', 'x', 'D', 'G','E','g', 
+			'F', 'I', 'i', 'j','H', 'Q', 'h', 'k', 'l', 'm', 'J','K', 'L', 'P', 'n', 
+			'M', 'N', 'O', 'R', 'S', 'T', 'q', 'r', 'U', 'V', 'W', 'd', 'e', 'f', 'X', 
+			'Y', 'Z', 'a', 'b', 'c', 's', 't', 'y', 'z' };
     StringBuffer strbuff = new StringBuffer("");
     if(!emptyString(codestr)) {
 	    int length = codestr.length(); int sum = 0;

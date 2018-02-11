@@ -57,7 +57,7 @@ public class ChemyooUtils {
 	
 	public static <K,V> boolean isEmpty(Map<K,V> map)
 	{
-		return (map== null || map.isEmpty());
+		return (map == null || map.isEmpty());
 	}
 	
 	public static <K,V> boolean isNotEmpty(Map<K,V> map)
@@ -83,7 +83,6 @@ public class ChemyooUtils {
 		        try 
 		        {
 					Object obj = f.get(type);
-					//System.err.println(obj);
 					if(obj!=null)
 					{
 						if(obj instanceof String && "".equals( ((String)obj).trim() ))
@@ -143,8 +142,8 @@ public class ChemyooUtils {
 	 */
 	public static long getDiffDays(Date first,Date second)
 	{
-		long mm=first.getTime()-second.getTime();
-		long days=mm/MILLS_OF_DAY;
+		long mm = first.getTime() - second.getTime();
+		long days = mm / MILLS_OF_DAY;
 		return days;
 	}
 	/** 
@@ -154,7 +153,7 @@ public class ChemyooUtils {
 	 */
 	public static long getDiffMills(Date first,Date second)
 	{
-		long mm=first.getTime()-second.getTime();
+		long mm = first.getTime()-second.getTime();
 		return mm;
 	}
 //	/**
