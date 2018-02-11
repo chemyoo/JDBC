@@ -343,7 +343,7 @@ public class ConnectionPools implements DataSource{
     public synchronized <K,V> List<Map<K,V>> aliasToMap(ResultSet resultSet) throws SQLException {
         List<Map<K,V>> list = new ArrayList<Map<K,V>>();
         Map<K,V> row = null;
-        if(resultSet!=null){
+        if(resultSet != null) {
             while(resultSet.next()) {//对每一条记录进行操作
                 row = new HashMap<K,V>();
                 ResultSetMetaData metaDatas = resultSet.getMetaData();
