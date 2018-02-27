@@ -27,7 +27,7 @@ import com.chemyoo.utils.ChemyooUtils;
  * @since 2018年1月8日 上午10:45:46 
  * @description 类说明 
  */
-public class ScanPackage<T> extends HttpServlet {
+public class ScanPackage extends HttpServlet {
 
 	/**
 	 * serialVersionUID
