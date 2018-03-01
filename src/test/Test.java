@@ -6,6 +6,11 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
@@ -29,6 +34,24 @@ public class Test {
         System.err.println( Roles.findRoleNameByCode(4));
         
         ReadLocalFiles readFiles = new ReadLocalFiles("E:/", "ctr","jpg","png");
+        
+        OutputStream outTarget;
+		try {
+			outTarget = new FileOutputStream("D://aaaa.xlsx");
+			List<String> titles = Arrays.asList("标题1","标题2");
+			List<Map<String, Object>> list = new ArrayList<Map<String, Object>>();
+			Map<String, Object> map = new HashMap<String, Object>();
+			map.put(titles.get(0), "测试1");
+			map.put(titles.get(1), "测试2");
+			list.add(map);
+			list.add(map);
+			list.add(map);
+			ChemyooUtils.commonExportData2Excel(outTarget, titles , list, "", true);
+		} catch (FileNotFoundException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+        
         //readFiles.setReadOnlyOne();
         File[] files = readFiles.readFiles();
        	if(files == null || files.length == 0)
