@@ -147,7 +147,7 @@ public class LocalMac
 							 // 如果是site-local地址，就是当前使用网卡地址
 							ia = inetAddress;
 							break label;
-						} else if(!backup && (ia instanceof Inet4Address)){
+						} else if(!backup && (inetAddress instanceof Inet4Address)){
 							// site-local类型的地址未被发现，先记录候选地址
 							ia = inetAddress;
 							backup = true;
