@@ -125,6 +125,44 @@ public class LocalMac
 		return  macAddress.toArray(new String[macAddress.size()]);
 	}
 	
+	public static String localIPAddress() {
+		StringBuffer buffer = new StringBuffer();
+		try {
+			InetAddress ia = InetAddress.getLocalHost();
+			Enumeration<NetworkInterface> netInterfaces = NetworkInterface.getNetworkInterfaces();
+			boolean backup = false;
+			NetworkInterface netWorkInterface = null;
+			InetAddress inetAddress = null;
+			Enumeration<InetAddress> address;
+			label:
+			while (netInterfaces.hasMoreElements()) {
+				netWorkInterface = netInterfaces.nextElement();
+				address = netWorkInterface.getInetAddresses();
+				while(address.hasMoreElements()) {
+					inetAddress = address.nextElement();
+					// 排除loopback类型地址
+					if(!inetAddress.isLoopbackAddress()) {
+						if(inetAddress.isSiteLocalAddress()) {
+							 // 如果是site-local地址，就是当前使用网卡地址
+							ia = inetAddress;
+							break label;
+						} else if(!backup){
+							// site-local类型的地址未被发现，先记录候选地址
+							ia = inetAddress;
+							backup = true;
+						}
+					} 
+				}
+			}
+			buffer.append(ia.getHostAddress());
+		} catch (SocketException e) {
+			e.printStackTrace();
+		} catch (UnknownHostException e) {
+			e.printStackTrace();
+		}
+		return buffer.toString();
+	}
+	
 	public static String toString(String[] strings) {
 		StringBuffer stringBuffer= new StringBuffer("[");
 		for(String str : strings) {
@@ -138,7 +176,7 @@ public class LocalMac
 	
 	public static void main(String [] args) throws IOException
 	{
-		JOptionPane.showMessageDialog(null,Mac.getInstanse(),"本机MAC地址为：",JOptionPane.PLAIN_MESSAGE);
+		JOptionPane.showMessageDialog(null,LocalMac.localIPAddress() + "/" +Mac.getInstanse(),"本机IP/MAC地址为：",JOptionPane.PLAIN_MESSAGE);
 		String userDir = System.getProperty("user.dir");
 		String lineSeparator = System.getProperty("line.separator", "/n");
 		File file = new File(userDir+"/logs.txt");
@@ -153,7 +191,8 @@ public class LocalMac
 		FileWriter fw = new FileWriter(file,true);
 		fw.append("本机MAC地址："+Mac.getInstanse()+lineSeparator);
 		fw.append("本机所有MAC地址："+LocalMac.toString(LocalMac.getAllMacAddress())+lineSeparator);
-		System.err.println(LocalMac.toString(LocalMac.getAllMacAddress()));
+//		System.err.println(LocalMac.toString(LocalMac.getAllMacAddress()));
+//		System.err.println("IP:" + LocalMac.localIPAddress() + " MAC:" + Mac.getInstanse());
 		fw.close();
 	}
 }
