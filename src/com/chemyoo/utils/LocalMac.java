@@ -3,6 +3,7 @@ package com.chemyoo.utils;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
+import java.net.Inet4Address;
 import java.net.InetAddress;
 import java.net.NetworkInterface;
 import java.net.SocketException;
@@ -146,7 +147,7 @@ public class LocalMac
 							 // 如果是site-local地址，就是当前使用网卡地址
 							ia = inetAddress;
 							break label;
-						} else if(!backup){
+						} else if(!backup && (ia instanceof Inet4Address)){
 							// site-local类型的地址未被发现，先记录候选地址
 							ia = inetAddress;
 							backup = true;
