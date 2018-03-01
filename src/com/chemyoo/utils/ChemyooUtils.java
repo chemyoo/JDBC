@@ -508,7 +508,7 @@ public class ChemyooUtils {
 	public static void commonExportData2Excel(OutputStream outTarget,List<String> titles,List<Map<String,Object>> list
 			,Object fillEmptyValue,boolean allStringValue) throws IllegalArgumentException {
 		// 声明一个工作薄
-		if(isEmpty(list) || titles == null) {
+		if(isEmpty(list) || titles == null) { 
 			return;
 		}
 		if(titles.size() == 0) {
