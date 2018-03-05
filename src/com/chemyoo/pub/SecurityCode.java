@@ -27,7 +27,7 @@ public class SecurityCode{
 	      int c = codestr.codePointAt(i) >> ((i+1) % 7);
 	      strbuff.append(c);
 	      if (i == 0)strbuff.append(letter[seed]);
-	      else if (i % 3 == 0) strbuff.append(letter[(i-1)<= size ? (i-1)  :(i%size)]);
+	      else if (i % 3 == 0) strbuff.append(letter[(i-1)<= size ? (i-1) : (i%size)]);
 	      else if (i % 3 == 2) strbuff.append(letter[i+1<= size ? i : ((i+1)%size)]);
 	      else strbuff.append(codestr.charAt(i >> 2 > length ? i : i >> 1));
 	    }

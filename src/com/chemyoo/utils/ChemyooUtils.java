@@ -1,7 +1,6 @@
 package com.chemyoo.utils;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -26,9 +25,6 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
-
-import com.sun.org.glassfish.gmbal.Description;
-
 
 /**
  * Personal utils
