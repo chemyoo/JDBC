@@ -59,6 +59,9 @@ public class ScanPackage extends HttpServlet {
 				Class<?> clazz;
 				TableEntiry table = null;
 				for (File f : childrenFiles) {
+					if(!f.getName().endsWith(".class")) {
+						continue;
+					}
 					clazz = Class.forName(beanPath + "." + f.getName().replace(".class", ""));
 					Table[] tableAnnotations = clazz.getAnnotationsByType(Table.class);
 					if (tableAnnotations != null && tableAnnotations.length != 0) {
