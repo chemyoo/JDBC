@@ -17,7 +17,7 @@ public class WebRoot
 	/**
 	 * @param webRoot the web_root to set
 	 */
-	public static void setWeb_root(String webRoot)
+	public static synchronized void setWeb_root(String webRoot)
 	{
 		if(web_root == null)
 			web_root = webRoot;
