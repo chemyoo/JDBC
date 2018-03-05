@@ -20,19 +20,23 @@ import org.apache.commons.lang.Validate;
 public class ListUtil {
 	private ListUtil() {}
 
-	public static <T> List<Object> getFieldValues(List<T> list, String fieldName) {
+	public static <T> List<? extends Object> getFieldValues(List<T> list, String fieldName) {
 		Validate.notEmpty(fieldName, "fieldName 不能为空！");
 		List<Object> fieldValues = new ArrayList<Object>();
 		if (ChemyooUtils.isNotEmpty(list)) {
+			Field field = null;
+			Method method = null;
 			try {
 				for (T type : list) {
-					Field f = type.getClass().getDeclaredField(fieldName);
-					if(f == null) {
-						break;
+					if (type instanceof java.util.Map) {
+						method = type.getClass().getMethod("get", Object.class);
+						fieldValues.add(method.invoke(type, fieldName));
+					} else {
+						field = type.getClass().getDeclaredField(fieldName);
+						field.setAccessible(true);
+						fieldValues.add(field.get(type));
+						field.setAccessible(false);
 					}
-					f.setAccessible(true);
-					fieldValues.add(f.get(type));
-					f.setAccessible(false);
 				}
 			} catch (IllegalArgumentException e) {
 				e.printStackTrace();
@@ -41,6 +45,10 @@ public class ListUtil {
 			} catch (NoSuchFieldException e) {
 				e.printStackTrace();
 			} catch (SecurityException e) {
+				e.printStackTrace();
+			} catch (NoSuchMethodException e) {
+				e.printStackTrace();
+			} catch (InvocationTargetException e) {
 				e.printStackTrace();
 			}
 		}
