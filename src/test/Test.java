@@ -28,7 +28,7 @@ public class Test {
 
         Test test = new Test();
         test.changeValue(test.a);
-        System.err.println(test.a);
+        System.err.println(test.a); 
         test.a.toUpperCase();
         
         System.err.println( Roles.findRoleNameByCode(4));
