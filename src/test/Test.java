@@ -46,7 +46,7 @@ public class Test {
 			list.add(map);
 			list.add(map);
 			list.add(map);
-			ChemyooUtils.commonExportData2Excel(outTarget, titles , list, "", true);
+			ChemyooUtils.commonExportData2Excel(outTarget, null , list, "", true);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

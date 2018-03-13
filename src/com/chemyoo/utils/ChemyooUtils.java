@@ -504,8 +504,8 @@ public class ChemyooUtils {
 	public static void commonExportData2Excel(OutputStream outTarget,List<String> titles,List<Map<String,Object>> list
 			,Object fillEmptyValue,boolean allStringValue) throws IllegalArgumentException {
 		// 声明一个工作薄
-		if(isEmpty(list) || titles == null) { 
-			return;
+		if(list == null || titles == null) { 
+			throw new NullPointerException("导出的数据或标题行不能为 null");
 		}
 		if(titles.size() == 0) {
 			throw new IllegalArgumentException("请设置标题行！");
