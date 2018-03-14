@@ -33,9 +33,9 @@ public class Test {
         System.err.println(test.a); 
         test.a.toUpperCase();
         
-        System.err.println( Roles.findRoleNameByCode(4));
+        System.err.println(Roles.findRoleNameByCode(4));
         
-        System.err.println(ChemyooUtils.formatDecimalDigits(2617853678656226560L, NumberFormatBase.Quanternary));
+        System.err.println(ChemyooUtils.formatDecimalDigits(4, NumberFormatBase.Quanternary));
         
         System.err.println(TimeUtils.validateDay("2018/03/02"));
         
