@@ -41,6 +41,8 @@ public class ChemyooUtils {
 	
 	private static final long MILLS_OF_DAY = 1000*60*60*24;
 	
+	private static final String EMPTY = "";
+	
 	private ChemyooUtils(){};
 	/**
 	 * use to judge the collection is empty or not
@@ -446,8 +448,8 @@ public class ChemyooUtils {
 	public void note()
 	{
 		String m = null;
-		Date start = TimeUtil.convertStringToDate("yyyy-MM", "2015-01");
-		Date end = TimeUtil.convertStringToDate("yyyy-MM", "2018-02");
+		Date start = TimeUtils.convertStringToDate("yyyy-MM", "2015-01");
+		Date end = TimeUtils.convertStringToDate("yyyy-MM", "2018-02");
 		GregorianCalendar grego1 = new GregorianCalendar();
 		GregorianCalendar grego2 = new GregorianCalendar();
 		grego1.setTime(start);
@@ -592,6 +594,15 @@ public class ChemyooUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	public static String formatDecimalDigits(long i,NumberFormatBase base) {
+		String str = EMPTY;
+		int baseNumber = base.getNumber();
+		for(long n = i; n > 0; n /= baseNumber) {
+			str = (n % baseNumber) + str;
+		}
+		return str;
 	}
 	
 }

@@ -4,7 +4,7 @@ import java.util.Date;
 
 import com.chemyoo.annotations.Field;
 import com.chemyoo.annotations.Table;
-import com.chemyoo.utils.TimeUtil;
+import com.chemyoo.utils.TimeUtils;
 
 /** 
  * @author 作者 : jianqing.liu
@@ -28,7 +28,7 @@ public class User {
 	
 	private Integer dr;
 	
-	private Date modifiedTime = TimeUtil.getNow();
+	private Date modifiedTime = TimeUtils.getNow();
 
 	/**
 	 * @return the pk

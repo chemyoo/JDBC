@@ -18,7 +18,9 @@ import com.chemyoo.enums.FileType;
 import com.chemyoo.enums.Roles;
 import com.chemyoo.file.ReadLocalFiles;
 import com.chemyoo.utils.ChemyooUtils;
+import com.chemyoo.utils.NumberFormatBase;
 import com.chemyoo.utils.ReadFileToStream;
+import com.chemyoo.utils.TimeUtils;
 
 public class Test {
 
@@ -32,6 +34,10 @@ public class Test {
         test.a.toUpperCase();
         
         System.err.println( Roles.findRoleNameByCode(4));
+        
+        System.err.println(ChemyooUtils.formatDecimalDigits(2617853678656226560L, NumberFormatBase.Quanternary));
+        
+        System.err.println(TimeUtils.validateDay("2018/03/02"));
         
         ReadLocalFiles readFiles = new ReadLocalFiles("E:/", "ctr","jpg","png");
         

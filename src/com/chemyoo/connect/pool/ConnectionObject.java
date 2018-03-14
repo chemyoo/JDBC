@@ -1,6 +1,6 @@
 package com.chemyoo.connect.pool;
 
-import com.chemyoo.utils.TimeUtil;
+import com.chemyoo.utils.TimeUtils;
 
 import java.sql.Connection;
 import java.util.Date;
@@ -19,7 +19,7 @@ class ConnectionObject {
         this.connection = connection;
         this.isFree = true;
         this.connectionName = connectionName;
-        this.lastModifyTime = TimeUtil.getNow();
+        this.lastModifyTime = TimeUtils.getNow();
     }
 
     public Connection getConnection() {
