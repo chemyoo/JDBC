@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.Field;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -14,6 +15,9 @@ import java.util.GregorianCalendar;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
@@ -273,10 +277,10 @@ public class ChemyooUtils {
 					list[i].clear();
 					list[i] = null;//使对象变为游离态
 				}
-				else if (list[i]!=null)
-				{
-					list[i] = null;//使对象变为游离态
-				}
+//				else if (list[i]!=null)
+//				{
+//					list[i] = null;//使对象变为游离态
+//				}
 			}
 		}
 	}
@@ -295,10 +299,10 @@ public class ChemyooUtils {
 					map[i].clear();
 					map[i] = null;//使对象变为游离态
 				}
-				else if(map[i]!=null)
-				{
-					map[i] = null;//使对象变为游离态
-				}
+//				else if(map[i]!=null)
+//				{
+//					map[i] = null;//使对象变为游离态
+//				}
 			}
 		}
 	}
@@ -317,7 +321,7 @@ public class ChemyooUtils {
 	{
 		if(o1==null)
 			return o2;
-		Class c =  Class.forName(o1.getClass().getName());
+		Class<?> c =  Class.forName(o1.getClass().getName());
 		return c.cast(o2);
 	}
 	/**
@@ -603,6 +607,38 @@ public class ChemyooUtils {
 			str = (n % baseNumber) + str;
 		}
 		return str;
+	}
+	
+	/**处理EXCEL导出时，IE浏览器文件名乱码的问题*/
+	private void dealMessyCode(HttpServletResponse response,HttpServletRequest request,String fileName) {
+		if(fileName == null) {
+			throw new NullPointerException("文件名称不能为NULL");
+		}
+		if("".equals(fileName.trim())) {
+			fileName += "未命名";
+		}
+		fileName +=  TimeUtils.convertDateToString(
+				Calendar.getInstance().getTime(),"yyyy-MM-dd HH.mm");
+		if(!fileName.toLowerCase().endsWith(".xls") && !fileName.toLowerCase().endsWith(".xlsx")) {
+			fileName += ".xlsx";
+		}
+		response.reset();
+		String userAgent = request.getHeader("user-agent");
+		try {
+			//处理IE浏览器文件名乱码的问题
+			 if (userAgent != null && (userAgent.indexOf("Firefox") >= 0 || userAgent.indexOf("Chrome") >= 0 
+					 || userAgent.indexOf("Safari") >= 0))
+			 {
+				 response.setHeader("Content-Disposition", "attachment;filename=" + 
+						 new String(fileName.getBytes("utf-8"), "ISO-8859-1"));
+			 } else {
+				response.setHeader("Content-Disposition", "attachment;filename=" + 
+						 new String(fileName.getBytes("GBK"), "ISO-8859-1"));
+			 }
+			 response.setContentType("application/msexcel");
+		} catch (UnsupportedEncodingException e) {
+			e.printStackTrace();
+		}
 	}
 	
 }
