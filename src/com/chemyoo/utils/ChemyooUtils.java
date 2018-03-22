@@ -47,6 +47,9 @@ public class ChemyooUtils {
 	
 	private static final String EMPTY = "";
 	
+	/**默认文字编码*/
+	private static final String DEFUALT_CHARSET = "UTF-8";
+	
 	private ChemyooUtils(){};
 	/**
 	 * use to judge the collection is empty or not
@@ -641,4 +644,14 @@ public class ChemyooUtils {
 		}
 	}
 	
+	public static String encode2UTF8(String str,String oldCharset){
+		if(str != null) {
+			try {
+				return new String(str.getBytes(oldCharset),DEFUALT_CHARSET);
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
+		return str;
+	}
 }

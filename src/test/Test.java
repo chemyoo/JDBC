@@ -27,6 +27,9 @@ public class Test {
     String a = "hello";
 
     public static void main(String args[]){
+    	
+    	String str = "杩滅▼涓绘満寮鸿揩鍏抽棴浜嗕竴涓幇鏈夌殑杩炴帴";
+    	System.out.println(ChemyooUtils.encode2UTF8(str , "GBK"));
 
         Test test = new Test();
         test.changeValue(test.a);
