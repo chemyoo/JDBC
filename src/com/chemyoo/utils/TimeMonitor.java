@@ -12,7 +12,7 @@ import java.util.concurrent.CountDownLatch;
 public class TimeMonitor
 {
 	private CountDownLatch countDownLatch = new CountDownLatch(1);
-	public  void timeSatrt(String name)
+	public  void timeStart(String name)
 	{
 			Thread thread = new Thread(){
 				@Override

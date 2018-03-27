@@ -6,6 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -30,7 +33,8 @@ public class Test {
     	
     	String str = "杩滅▼涓绘満寮鸿揩鍏抽棴浜嗕竴涓幇鏈夌殑杩炴帴";
     	System.out.println(ChemyooUtils.encode2UTF8(str , "GBK"));
-
+    	
+    	System.err.println();
         Test test = new Test();
         test.changeValue(test.a);
         System.err.println(test.a); 
@@ -42,7 +46,7 @@ public class Test {
         
         System.err.println(TimeUtils.validateDay("2018/03/02"));
         
-        ReadLocalFiles readFiles = new ReadLocalFiles("E:/", "ctr","jpg","png");
+//        ReadLocalFiles readFiles = new ReadLocalFiles("E:/", "ctr","jpg","png");
         
         OutputStream outTarget;
 		try {
@@ -55,14 +59,14 @@ public class Test {
 			list.add(map);
 			list.add(map);
 			list.add(map);
-			ChemyooUtils.commonExportData2Excel(outTarget, null , list, "", true);
+			//ChemyooUtils.commonExportData2Excel(outTarget, null , list, "", true);
 		} catch (FileNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
         
         //readFiles.setReadOnlyOne();
-        File[] files = readFiles.readFiles();
+        File[] files = null;//readFiles.readFiles();
        	if(files == null || files.length == 0)
        	{
        		return;

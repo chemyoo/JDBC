@@ -50,6 +50,8 @@ public class ChemyooUtils {
 	/**默认文字编码*/
 	private static final String DEFUALT_CHARSET = "UTF-8";
 	
+	private static final String EOF = "EOF";
+	
 	private ChemyooUtils(){};
 	/**
 	 * use to judge the collection is empty or not
@@ -647,7 +649,22 @@ public class ChemyooUtils {
 	public static String encode2UTF8(String str,String oldCharset){
 		if(str != null) {
 			try {
-				return new String(str.getBytes(oldCharset),DEFUALT_CHARSET);
+				String temp = new String(str.getBytes(oldCharset),DEFUALT_CHARSET);
+				if(temp.endsWith(EOF)) {
+					return temp.substring(0, temp.length()-EOF.length());
+				}
+				return temp;
+			} catch (UnsupportedEncodingException e) {
+				e.printStackTrace();
+			}
+		}
+		return str;
+	}
+	
+	public static String encode(String str,String oldCharset, String newCharset){
+		if(str != null) {
+			try {
+				return new String((str+EOF).getBytes(oldCharset), newCharset);
 			} catch (UnsupportedEncodingException e) {
 				e.printStackTrace();
 			}
