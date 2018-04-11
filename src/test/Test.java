@@ -44,7 +44,7 @@ public class Test {
         
         System.err.println(ChemyooUtils.formatDecimalDigits(4, NumberFormatBase.Quanternary));
         
-        System.err.println(TimeUtils.validateDay("2018/03/02"));
+        System.err.println("日期验证："+TimeUtils.validateDay("2018-03-01"));
         
 //        ReadLocalFiles readFiles = new ReadLocalFiles("E:/", "ctr","jpg","png");
         

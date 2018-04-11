@@ -12,7 +12,7 @@ public class TimeUtils {
 	
 	private final static String MONTH_PATTERN = "^[1-9]\\d{3}-(0[1-9]|1[0-2])$";
 	
-	private final static String DAY_PATTERN = "^[1-9]\\d{3}-(0[1-9]|1[0-2])-([0-2][0-9]|3[0-1])$";
+	private final static String DAY_PATTERN = "^[1-9]\\d{3}-(0[1-9]|1[0-2])-(0[1-9]|[1-2][0-9]|3[0-1])$";
 	/**斜线*/
 	private final static String INTERPUNCTION_DIAGONAL = "/";
 	/**短横线*/
