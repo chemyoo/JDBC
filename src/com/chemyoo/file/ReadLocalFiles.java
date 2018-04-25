@@ -1,7 +1,6 @@
 package com.chemyoo.file;
 
 import java.io.File;
-import java.util.Arrays;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
@@ -15,8 +14,8 @@ public class ReadLocalFiles {
 	
 	private boolean multiSelection = true;
 	
-	private final String NO_SET ="no set any file extension";
-	private final String COMMA =",";
+	private static final String NO_SET ="no set any file extension";
+	private static final String COMMA =",";
 	/**
 	 * path : the director which file exsits
 	 * fileExt : the extension of file

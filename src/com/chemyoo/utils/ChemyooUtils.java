@@ -1,6 +1,7 @@
 package com.chemyoo.utils;
 
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -12,6 +13,7 @@ import java.util.Calendar;
 import java.util.Collection;
 import java.util.Date;
 import java.util.GregorianCalendar;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.TimeUnit;
@@ -20,14 +22,18 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
+import org.apache.poi.hssf.usermodel.HSSFDateUtil;
 import org.apache.poi.hssf.usermodel.HSSFFont;
+import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.hssf.util.HSSFColor;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.Font;
 import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.ss.usermodel.Sheet;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.apache.poi.xssf.streaming.SXSSFWorkbook;
+import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 /**
@@ -51,6 +57,9 @@ public class ChemyooUtils {
 	private static final String DEFUALT_CHARSET = "UTF-8";
 	
 	private static final String EOF = "EOF";
+	
+	public static final String OFFICE_EXCEL_2003_POSTFIX = ".xls";
+	public static final String OFFICE_EXCEL_2010_POSTFIX = ".xlsx";
 	
 	private ChemyooUtils(){};
 	/**
@@ -518,7 +527,7 @@ public class ChemyooUtils {
 		if(list == null || titles == null) { 
 			throw new NullPointerException("导出的数据或标题行不能为 null");
 		}
-		if(titles.size() == 0) {
+		if(titles.isEmpty()) {
 			throw new IllegalArgumentException("请设置标题行！");
 		}
 		SXSSFWorkbook workbook = new SXSSFWorkbook();
@@ -603,6 +612,84 @@ public class ChemyooUtils {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
+	}
+	
+	/**通用读取Excel表格的方法，只读第一页*/
+	public static List<Map<String,Object>> commonReadExcelData(String path){
+		InputStream is = null;
+		Workbook workbook = null;  
+		List<Map<String,Object>> list = new ArrayList<>();
+		try {
+			if(isNotEmpty(path)) {
+				if(path.endsWith(OFFICE_EXCEL_2003_POSTFIX)) {
+					is = new FileInputStream(path);
+					workbook = new HSSFWorkbook(is);
+				} else if(path.endsWith(OFFICE_EXCEL_2010_POSTFIX)) {
+					is = new FileInputStream(path);
+					workbook = new XSSFWorkbook(is);
+				}
+			}
+			if(workbook != null) {
+				int numSheet = workbook.getNumberOfSheets();
+				if(numSheet < 1) {
+					throw new IOException("读取Excel表格出现异常,表格中没有可用的Sheet...");
+				}
+				Sheet sheet = workbook.getSheetAt(0);
+				if(sheet == null) {
+					return list;
+				}
+				//获取标题行
+				List<String> title = new ArrayList<>();
+				int rowNum = sheet.getLastRowNum();
+				Row row;
+				Map<String,Object> mapRow = null;
+				if(rowNum > 1) {
+					row = sheet.getRow(0);
+					for(int i = 0, size = row.getLastCellNum(); i< size; i++) {
+						title.add(row.getCell(i).getStringCellValue());
+					}
+				}
+				if(rowNum > 2) {
+					for(int i = 1; i < rowNum; i++) {
+						row = sheet.getRow(i);
+						mapRow = new HashMap<>();
+						for(int k = 0, size = row.getLastCellNum(); k< size; k++) {
+							Cell cell = row.getCell(k);
+							String cellValue = "";
+							if (cell.getCellType() == Cell.CELL_TYPE_NUMERIC) {
+								if (HSSFDateUtil.isCellDateFormatted(cell)) {     
+							        //如果是date类型则 ，获取该cell的date值     
+									cellValue = TimeUtils.convertDateToString(HSSFDateUtil
+											.getJavaDate(cell.getNumericCellValue()), "yyyy-MM");     
+							    }else {
+							    	cell.setCellType(Cell.CELL_TYPE_STRING);
+							    	cellValue = cell.getStringCellValue();
+							    }
+							} else if (cell.getCellType() == Cell.CELL_TYPE_BOOLEAN) {
+								cellValue = String.valueOf(cell.getBooleanCellValue());
+							} else if (cell.getCellType() == Cell.CELL_TYPE_FORMULA) {
+								cellValue = String.valueOf(cell.getCellFormula());
+							} else {
+								cellValue = cell.getStringCellValue();
+							}
+							if(title.isEmpty()) {
+								mapRow.put(String.valueOf(k), cellValue);
+							} else {
+								mapRow.put(title.get(k), cellValue);
+							}
+						}
+						list.add(mapRow);
+					}
+				}
+				
+			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		} finally {
+			IOUtils.closeQuietly(is);
+			workbook = null;
+		}
+		return list;
 	}
 	
 	public static String formatDecimalDigits(long i,NumberFormatBase base) {
