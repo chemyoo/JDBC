@@ -18,10 +18,10 @@ import java.util.Map;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
 import com.chemyoo.enums.FileType;
+import com.chemyoo.enums.NumberFormatBase;
 import com.chemyoo.enums.Roles;
 import com.chemyoo.file.ReadLocalFiles;
 import com.chemyoo.utils.ChemyooUtils;
-import com.chemyoo.utils.NumberFormatBase;
 import com.chemyoo.utils.ReadFileToStream;
 import com.chemyoo.utils.TimeUtils;
 

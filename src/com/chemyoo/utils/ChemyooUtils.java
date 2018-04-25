@@ -36,6 +36,8 @@ import org.apache.poi.xssf.streaming.SXSSFWorkbook;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
+import com.chemyoo.enums.NumberFormatBase;
+
 /**
  * Personal utils
  * @author Chemyoo

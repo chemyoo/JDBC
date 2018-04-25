@@ -1,4 +1,4 @@
-package com.chemyoo.utils;
+package com.chemyoo.enums;
 /** 
  * @author 作者 : jianqing.liu
  * @version 创建时间：2018年3月14日 上午10:10:38 
