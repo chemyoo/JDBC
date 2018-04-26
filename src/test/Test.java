@@ -17,11 +17,13 @@ import java.util.Map;
 
 import org.apache.tomcat.util.http.fileupload.IOUtils;
 
+import com.chemyoo.entiry.GeographicCoordinates;
 import com.chemyoo.enums.FileType;
 import com.chemyoo.enums.NumberFormatBase;
 import com.chemyoo.enums.Roles;
 import com.chemyoo.file.ReadLocalFiles;
 import com.chemyoo.utils.ChemyooUtils;
+import com.chemyoo.utils.LocationUtils;
 import com.chemyoo.utils.ReadFileToStream;
 import com.chemyoo.utils.TimeUtils;
 
@@ -45,6 +47,12 @@ public class Test {
         System.err.println(ChemyooUtils.formatDecimalDigits(4, NumberFormatBase.Quanternary));
         
         System.err.println("日期验证："+TimeUtils.validateDay("2018-03-01"));
+        
+        
+        GeographicCoordinates coord1 = new GeographicCoordinates(0,0);
+        GeographicCoordinates coord2 = new GeographicCoordinates(120,0);
+        
+        System.err.println(LocationUtils.getDistance(coord1, coord2)+"m");
         
 //        ReadLocalFiles readFiles = new ReadLocalFiles("E:/", "ctr","jpg","png");
         
