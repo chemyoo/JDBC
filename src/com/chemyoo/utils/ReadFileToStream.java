@@ -30,4 +30,9 @@ public class ReadFileToStream {
     public InputStream getInputStream() {
         return inputStream;
     }
+    
+    public void closeQuietly() {
+    	IOUtils.closeQuietly(inputStream);
+    }
+    
 }

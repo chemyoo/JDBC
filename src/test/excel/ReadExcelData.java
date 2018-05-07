@@ -21,12 +21,12 @@ import com.chemyoo.utils.ChemyooUtils;
  */
 public class ReadExcelData {
 	
-	private static final String R_KEY = "终端签到次数";
+	private static final String R_KEY = "拜访里程";
 	
 	private static final String MONTH_NAME = "月份";
 	
 	public static void main(String[] args) throws FileNotFoundException {
-		ReadLocalFiles reader = new ReadLocalFiles("C:\\Users\\n_soul\\Desktop\\2018-04-24","xls","xlsx");
+		ReadLocalFiles reader = new ReadLocalFiles("E:\\Tencent Rec File","xls","xlsx");
 		File[] files = reader.readFiles();
 		if(files != null) {
 			List<Map<String, Object>> list = null;
@@ -60,11 +60,13 @@ public class ReadExcelData {
 					}
 				}
 			}
-			File outFile = new File("C:/Users/n_soul/Desktop/2018-04-24/"+ R_KEY +".xlsx");
+			File outFile = new File("D:/outFile/" + R_KEY +".xlsx");
 			if(outFile.exists() && !outFile.delete()) {
 				throw new FileNotFoundException("文件正在被其它程序使用！");
 			} 
-			
+			else if(!new File("D:/outFile/").exists()){
+				new File("D:/outFile/").mkdirs();
+			}
 			if(!outData.isEmpty()) {
 				OutputStream outTarget = new FileOutputStream(outFile);
 				List<String> titles = new ArrayList<>(outData.get(0).keySet());
@@ -105,6 +107,7 @@ public class ReadExcelData {
 					}
 				});
 				ChemyooUtils.commonExportData2Excel(outTarget , titles, outData, "0", true);
+				System.err.println("文件路径："+outFile.getAbsolutePath());
 			}
 		}
 	}
