@@ -1,11 +1,16 @@
 package com.chemyoo.utils;
 
 import java.io.BufferedReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
+
+import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
 
@@ -57,4 +62,16 @@ public class HttpClientUtils {
 		}
 		return data;
 	}
+	
+	/**
+	 * 从网络地址下载文件至本地
+	 * 
+	 * @param domain 地址
+	 * @param downLoadPath 文件存放路径
+	 * @throws IOException
+	 */
+	public static void downloadFromInternet(String domain, String downLoadPath) throws IOException{
+		FileUtils.copyURLToFile(new URL(domain), new File(downLoadPath));
+	}
+	
 }

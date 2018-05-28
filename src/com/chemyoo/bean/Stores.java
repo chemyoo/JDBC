@@ -12,7 +12,7 @@ import com.chemyoo.annotations.Table;
 /**
  * Stores entity. @author MyEclipse Persistence Tools
  */
-@Table(name="stores")
+@Table(name = "stores")
 public class Stores implements Serializable {
 
 	/**
@@ -20,7 +20,7 @@ public class Stores implements Serializable {
 	 */
 	@NotField
 	private static final long serialVersionUID = 9133466602208515848L;
-	@Field(name = "PKSTORE",primaryKey = true)
+	@Field(name = "PKSTORE", primaryKey = true)
 	private String pkStore;
 	@Field(name = "STORE_ID")
 	private String storeid;
@@ -34,7 +34,7 @@ public class Stores implements Serializable {
 	private Set productInfos = new HashSet(0);
 	@NotField
 	private Set checkIns = new HashSet(0);
-	@NotField 
+	@NotField
 	private Set checkOuts = new HashSet(0);
 
 	// Constructors
@@ -49,8 +49,8 @@ public class Stores implements Serializable {
 	}
 
 	/** full constructor */
-	public Stores(String pkStore, String storeid, String storename, Date ts,
-			Integer dr, Set productInfos, Set checkIns, Set checkOuts) {
+	public Stores(String pkStore, String storeid, String storename, Date ts, Integer dr, Set productInfos, Set checkIns,
+			Set checkOuts) {
 		this.pkStore = pkStore;
 		this.storeid = storeid;
 		this.storename = storename;
@@ -129,15 +129,8 @@ public class Stores implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Stores{" +
-				"pkStore='" + pkStore + '\'' +
-				", storeid='" + storeid + '\'' +
-				", storename='" + storename + '\'' +
-				", ts='" + ts + '\'' +
-				", dr=" + dr +
-				", productInfos=" + productInfos +
-				", checkIns=" + checkIns +
-				", checkOuts=" + checkOuts +
-				'}';
+		return "Stores{" + "pkStore='" + pkStore + '\'' + ", storeid='" + storeid + '\'' + ", storename='" + storename
+				+ '\'' + ", ts='" + ts + '\'' + ", dr=" + dr + ", productInfos=" + productInfos + ", checkIns="
+				+ checkIns + ", checkOuts=" + checkOuts + '}';
 	}
 }

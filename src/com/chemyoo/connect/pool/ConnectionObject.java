@@ -7,51 +7,50 @@ import java.util.Date;
 
 class ConnectionObject {
 
-    private String connectionName;
+	private String connectionName;
 
-    private Connection connection;
+	private Connection connection;
 
-    private boolean isFree = true;
+	private boolean isFree = true;
 
-    private Date lastModifyTime;
+	private Date lastModifyTime;
 
-    public ConnectionObject(Connection connection,String connectionName) {
-        this.connection = connection;
-        this.isFree = true;
-        this.connectionName = connectionName;
-        this.lastModifyTime = TimeUtils.getNow();
-    }
+	public ConnectionObject(Connection connection, String connectionName) {
+		this.connection = connection;
+		this.isFree = true;
+		this.connectionName = connectionName;
+		this.lastModifyTime = TimeUtils.getNow();
+	}
 
-    public Connection getConnection() {
-        return connection;
-    }
+	public Connection getConnection() {
+		return connection;
+	}
 
-    public void freeConnection()
-    {
-        this.isFree = true;
-    }
+	public void freeConnection() {
+		this.isFree = true;
+	}
 
-    public void setConnection(Connection connection) {
-        this.connection = connection;
-    }
+	public void setConnection(Connection connection) {
+		this.connection = connection;
+	}
 
-    public boolean isFree() {
-        return isFree;
-    }
+	public boolean isFree() {
+		return isFree;
+	}
 
-    public void setFree(boolean free) {
-        isFree = free;
-    }
+	public void setFree(boolean free) {
+		isFree = free;
+	}
 
-    public Date getLastModifyTime() {
-        return lastModifyTime;
-    }
+	public Date getLastModifyTime() {
+		return lastModifyTime;
+	}
 
-    public String getConnectionName() {
-        return connectionName;
-    }
+	public String getConnectionName() {
+		return connectionName;
+	}
 
-    public void setConnectionName(String connectionName) {
-        this.connectionName = connectionName;
-    }
+	public void setConnectionName(String connectionName) {
+		this.connectionName = connectionName;
+	}
 }

@@ -23,12 +23,12 @@ import com.chemyoo.enums.JavaType;
 import com.chemyoo.utils.ChemyooUtils;
 import com.chemyoo.utils.SystemUtils;
 
-/** 
+/**
  * @author 作者 : jianqing.liu
- * @version 创建时间：2018年1月8日 上午10:45:46 
+ * @version 创建时间：2018年1月8日 上午10:45:46
  * @param <T>
- * @since 2018年1月8日 上午10:45:46 
- * @description 类说明 
+ * @since 2018年1月8日 上午10:45:46
+ * @description 类说明
  */
 public class ScanPackage extends HttpServlet {
 
@@ -36,17 +36,17 @@ public class ScanPackage extends HttpServlet {
 	 * serialVersionUID
 	 */
 	private static final long serialVersionUID = -3231708832390454562L;
-	
+
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
 		String beanPath = config.getInitParameter("beanPackage");
-		if(ChemyooUtils.isNotEmpty(beanPath)) {
+		if (ChemyooUtils.isNotEmpty(beanPath)) {
 			String[] beanPaths = beanPath.split(",");
 			this.scanTables(beanPaths);
 		}
 	}
-	
+
 	private void scanTables(String[] beanPaths) throws ServletException {
 		String classPath = Thread.currentThread().getContextClassLoader().getResource("/").getPath();
 		System.err.println(classPath);
@@ -55,14 +55,14 @@ public class ScanPackage extends HttpServlet {
 			File file;
 			for (String beanPath : beanPaths) {
 				file = new File(classPath + beanPath.replace(".", SystemUtils.getFileSeparator()));
-				if(!file.exists()) {
-					throw new ServletException("package ["+beanPath+"] does not exists!");
+				if (!file.exists()) {
+					throw new ServletException("package [" + beanPath + "] does not exists!");
 				}
 				File[] childrenFiles = file.listFiles();
 				Class<?> clazz;
 				TableEntiry table = null;
 				for (File f : childrenFiles) {
-					if(!f.getName().endsWith(".class")) {
+					if (!f.getName().endsWith(".class")) {
 						continue;
 					}
 					clazz = Class.forName(beanPath + "." + f.getName().replace(".class", ""));
@@ -100,7 +100,7 @@ public class ScanPackage extends HttpServlet {
 				colunm.setColunmName(annotation.name());
 			} else {
 				colunm.setColunmName(field.getName());
-				if(annotation != null) {
+				if (annotation != null) {
 					colunm.setPrimaryKey(annotation.primaryKey());
 				}
 			}
@@ -109,27 +109,23 @@ public class ScanPackage extends HttpServlet {
 		}
 		return columns;
 	}
-		
-	private void createTables(List<TableEntiry> tables) throws ServletException
-	{
-		if(ChemyooUtils.isNotEmpty(tables)) 
-		{
+
+	private void createTables(List<TableEntiry> tables) throws ServletException {
+		if (ChemyooUtils.isNotEmpty(tables)) {
 			List<ColunmEntiry> colunms = null;
 			StringBuffer strbuff = new StringBuffer();
-			for(TableEntiry table : tables)
-			{
+			for (TableEntiry table : tables) {
 				colunms = table.getColunms();
-				if(ChemyooUtils.isEmpty(colunms)) {
+				if (ChemyooUtils.isEmpty(colunms)) {
 					strbuff = null;
 					throw new ServletException("The table entiry not include any field");
 				}
-//				strbuff.append("IF NOT EXSITS()");
+				// strbuff.append("IF NOT EXSITS()");
 				strbuff.append("create table ");
 				strbuff.append(table.getTableName());
 				strbuff.append("( ");
-				
-				for(ColunmEntiry colunm : colunms)
-				{
+
+				for (ColunmEntiry colunm : colunms) {
 					strbuff.append(SystemUtils.getLineSeparator());
 					strbuff.append(colunm.getColunmName());
 					strbuff.append(" ");
@@ -138,7 +134,7 @@ public class ScanPackage extends HttpServlet {
 					strbuff.append((colunm.isPrimaryKey()) ? "primary key" : "");
 					strbuff.append(",");
 				}
-				strbuff.delete(strbuff.length()-1, strbuff.length());
+				strbuff.delete(strbuff.length() - 1, strbuff.length());
 				strbuff.append(SystemUtils.getLineSeparator());
 				strbuff.append(") ");
 				strbuff.append(SystemUtils.getLineSeparator());
@@ -146,7 +142,7 @@ public class ScanPackage extends HttpServlet {
 			this.excuteSql(strbuff.toString());
 		}
 	}
-	
+
 	private void excuteSql(String sql) {
 		try (Connection connect = ConnectionPoolsManager.getInstanse().getConnection();
 				Statement statement = connect.createStatement();) {

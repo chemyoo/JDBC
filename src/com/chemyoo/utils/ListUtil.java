@@ -10,7 +10,6 @@ import java.util.TreeMap;
 import org.apache.commons.lang.StringUtils;
 import org.apache.commons.lang.Validate;
 
-
 /**
  * @author 作者 : jianqing.liu
  * @version 创建时间：2018年1月4日 上午11:29:03
@@ -18,7 +17,8 @@ import org.apache.commons.lang.Validate;
  * @description 类说明
  */
 public class ListUtil {
-	private ListUtil() {}
+	private ListUtil() {
+	}
 
 	public static <T> List<? extends Object> getFieldValues(List<T> list, String fieldName) {
 		Validate.notEmpty(fieldName, "fieldName 不能为空！");
@@ -55,9 +55,7 @@ public class ListUtil {
 		return fieldValues;
 	}
 
-	
-	public static <T> List<Map<String,Object>> listBeanToListMap(List<T> list,String... jsonInculdeFields)
-	{
+	public static <T> List<Map<String, Object>> listBeanToListMap(List<T> list, String... jsonInculdeFields) {
 		List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
 		if (ChemyooUtils.isEmpty(list) || jsonInculdeFields == null || jsonInculdeFields.length == 0) {
 			return returnList;
@@ -65,8 +63,8 @@ public class ListUtil {
 		Map<String, Object> map = null;
 		List<String> getMethodsFields = new ArrayList<String>();
 		for (String fieldName : jsonInculdeFields) {
-			if(StringUtils.isNotEmpty(fieldName)) {
-				getMethodsFields.add("get"+fieldName.toLowerCase().trim());
+			if (StringUtils.isNotEmpty(fieldName)) {
+				getMethodsFields.add("get" + fieldName.toLowerCase().trim());
 			}
 		}
 		try {
@@ -79,7 +77,7 @@ public class ListUtil {
 						map.put(jsonInculdeFields[lastIndexOf].trim(), method.invoke(t));
 					}
 				}
-				if(!map.isEmpty()) {
+				if (!map.isEmpty()) {
 					returnList.add(map);
 				}
 			}
@@ -92,9 +90,8 @@ public class ListUtil {
 		}
 		return returnList;
 	}
-	
-	public static <T> List<Map<String,Object>> beanToListMap(T bean,String... jsonInculdeFields)
-	{
+
+	public static <T> List<Map<String, Object>> beanToListMap(T bean, String... jsonInculdeFields) {
 		List<Map<String, Object>> returnList = new ArrayList<Map<String, Object>>();
 		if (bean == null || jsonInculdeFields == null || jsonInculdeFields.length == 0) {
 			return returnList;
@@ -103,11 +100,11 @@ public class ListUtil {
 		List<String> getMethodsFields = new ArrayList<String>();
 		for (String fieldName : jsonInculdeFields) {
 			if (StringUtils.isNotEmpty(fieldName)) {
-				getMethodsFields.add("get"+fieldName.toLowerCase().trim());
+				getMethodsFields.add("get" + fieldName.toLowerCase().trim());
 			}
 		}
 		try {
-			map =  new TreeMap<String, Object>();
+			map = new TreeMap<String, Object>();
 			Method[] methods = bean.getClass().getDeclaredMethods();
 			for (Method method : methods) {
 				int lastIndexOf = getMethodsFields.lastIndexOf(method.getName().toLowerCase());
@@ -115,7 +112,7 @@ public class ListUtil {
 					map.put(jsonInculdeFields[lastIndexOf].trim(), method.invoke(bean));
 				}
 			}
-			if(!map.isEmpty()) {
+			if (!map.isEmpty()) {
 				returnList.add(map);
 			}
 		} catch (IllegalAccessException e) {

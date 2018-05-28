@@ -9,21 +9,21 @@ import java.io.InputStreamReader;
 import org.apache.log4j.Logger;
 
 public class RestartLocalTomcat {
-	
-	private RestartLocalTomcat() {}
-	
+
+	private RestartLocalTomcat() {
+	}
+
 	public static void restart(String tomcatDir) {
 		createCmdFile(tomcatDir);
 		executeCmd(tomcatDir);
 	}
-	
+
 	private static void executeCmd(String tomcatDir) {
 		Runtime run = Runtime.getRuntime();
 		try {
 			Process ps = run.exec(tomcatDir + "\\bin\\restart.bat");
-			//我很奇怪  下面的代码去掉的话 tomcat的黑框就不能出现  
-			BufferedReader br = new BufferedReader(new InputStreamReader(
-					ps.getInputStream(), "GBK"));// 注意中文编码问题
+			// 我很奇怪 下面的代码去掉的话 tomcat的黑框就不能出现
+			BufferedReader br = new BufferedReader(new InputStreamReader(ps.getInputStream(), "GBK"));// 注意中文编码问题
 			String line;
 			while ((line = br.readLine()) != null) {
 				StringBuilder stringBuilder = new StringBuilder();
@@ -43,7 +43,7 @@ public class RestartLocalTomcat {
 		try {
 			FileWriter fw = new FileWriter(f);
 			BufferedWriter bw = new BufferedWriter(fw);
-			 //下面的必须加上
+			// 下面的必须加上
 			bw.write("set CATALINA_HOME=" + tomcatDir);
 			bw.newLine();
 			bw.write("call " + f.getParent() + "\\shutdown.bat");

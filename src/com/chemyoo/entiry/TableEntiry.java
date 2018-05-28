@@ -3,16 +3,16 @@ package com.chemyoo.entiry;
 import java.util.ArrayList;
 import java.util.List;
 
-/** 
+/**
  * @author 作者 : jianqing.liu
- * @version 创建时间：2018年1月20日 下午2:09:12 
- * @since 2018年1月20日 下午2:09:12 
- * @description 类说明 
+ * @version 创建时间：2018年1月20日 下午2:09:12
+ * @since 2018年1月20日 下午2:09:12
+ * @description 类说明
  */
 public class TableEntiry {
-	
+
 	private String tableName;
-	
+
 	private List<ColunmEntiry> colunms;
 
 	/**
@@ -23,7 +23,8 @@ public class TableEntiry {
 	}
 
 	/**
-	 * @param tableName the tableName to set
+	 * @param tableName
+	 *            the tableName to set
 	 */
 	public void setTableName(String tableName) {
 		this.tableName = tableName;
@@ -37,21 +38,22 @@ public class TableEntiry {
 	}
 
 	/**
-	 * @param colunms the colunms to set
+	 * @param colunms
+	 *            the colunms to set
 	 */
 	public void setColunms(List<ColunmEntiry> colunms) {
 		this.colunms = colunms;
 	}
-	
+
 	public void addColunm(ColunmEntiry colunm) {
-		if(this.colunms == null) {
+		if (this.colunms == null) {
 			this.colunms = new ArrayList<ColunmEntiry>();
 		}
 		this.colunms.add(colunm);
 	}
-	
+
 	public void addColunms(List<ColunmEntiry> colunms) {
-		if(this.colunms == null) {
+		if (this.colunms == null) {
 			this.colunms = new ArrayList<ColunmEntiry>();
 		}
 		this.colunms.addAll(colunms);

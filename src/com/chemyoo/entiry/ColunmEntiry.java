@@ -1,16 +1,17 @@
 package com.chemyoo.entiry;
-/** 
+
+/**
  * @author 作者 : jianqing.liu
- * @version 创建时间：2018年1月20日 下午2:12:18 
- * @since 2018年1月20日 下午2:12:18 
- * @description 类说明 
+ * @version 创建时间：2018年1月20日 下午2:12:18
+ * @since 2018年1月20日 下午2:12:18
+ * @description 类说明
  */
 public class ColunmEntiry {
-	
+
 	private String colunmName;
-	
+
 	private String dataType;
-	
+
 	private boolean isPrimaryKey = false;
 
 	/**
@@ -21,7 +22,8 @@ public class ColunmEntiry {
 	}
 
 	/**
-	 * @param colunmName the colunmName to set
+	 * @param colunmName
+	 *            the colunmName to set
 	 */
 	public void setColunmName(String colunmName) {
 		this.colunmName = colunmName;
@@ -35,7 +37,8 @@ public class ColunmEntiry {
 	}
 
 	/**
-	 * @param dataType the dataType to set
+	 * @param dataType
+	 *            the dataType to set
 	 */
 	public void setDataType(String dataType) {
 		this.dataType = dataType;
@@ -49,7 +52,8 @@ public class ColunmEntiry {
 	}
 
 	/**
-	 * @param isPrimaryKey the isPrimaryKey to set
+	 * @param isPrimaryKey
+	 *            the isPrimaryKey to set
 	 */
 	public void setPrimaryKey(boolean isPrimaryKey) {
 		this.isPrimaryKey = isPrimaryKey;

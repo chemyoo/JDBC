@@ -10,7 +10,9 @@ import java.io.IOException;
  * @description 类说明
  */
 public class IOUtils {
-	private IOUtils() {}
+	private IOUtils() {
+	}
+
 	public static void closeQuietly(Closeable closeable) {
 		try {
 			if (closeable != null) {
