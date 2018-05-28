@@ -5,9 +5,9 @@ import java.io.File;
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileSystemView;
-import com.chemyoo.utils.BaseLogger;
+import com.chemyoo.utils.LoggerUtils;
 
-public class ReadLocalFiles extends BaseLogger<ReadLocalFiles>{
+public class ReadLocalFiles {
 	
 	private String path = null;
 	
@@ -84,7 +84,7 @@ public class ReadLocalFiles extends BaseLogger<ReadLocalFiles>{
 			 }
 	     }
 		 else {
-            log.warn("No file is selected!");
+			LoggerUtils.logWarn(getClass(), "No file is selected!");
 		 }
 		return files;
 	}

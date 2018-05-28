@@ -25,6 +25,7 @@ import com.chemyoo.file.ReadLocalFiles;
 import com.chemyoo.utils.ChemyooUtils;
 import com.chemyoo.utils.LocationUtils;
 import com.chemyoo.utils.ReadFileToStream;
+import com.chemyoo.utils.SystemUtils;
 import com.chemyoo.utils.TimeUtils;
 
 public class Test {
@@ -72,7 +73,7 @@ public class Test {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-        
+        SystemUtils.getClassPath();
         //readFiles.setReadOnlyOne();
         File[] files = null;//readFiles.readFiles();
        	if(files == null || files.length == 0)

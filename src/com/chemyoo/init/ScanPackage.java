@@ -11,6 +11,8 @@ import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
+import org.apache.commons.io.IOUtils;
+
 import com.chemyoo.annotations.Field;
 import com.chemyoo.annotations.NotField;
 import com.chemyoo.annotations.Table;
@@ -19,6 +21,7 @@ import com.chemyoo.entiry.ColunmEntiry;
 import com.chemyoo.entiry.TableEntiry;
 import com.chemyoo.enums.JavaType;
 import com.chemyoo.utils.ChemyooUtils;
+import com.chemyoo.utils.SystemUtils;
 
 /** 
  * @author 作者 : jianqing.liu
@@ -51,7 +54,7 @@ public class ScanPackage extends HttpServlet {
 		try {
 			File file;
 			for (String beanPath : beanPaths) {
-				file = new File(classPath + beanPath.replace(".", ChemyooUtils.getFileSeparator()));
+				file = new File(classPath + beanPath.replace(".", SystemUtils.getFileSeparator()));
 				if(!file.exists()) {
 					throw new ServletException("package ["+beanPath+"] does not exists!");
 				}
@@ -127,7 +130,7 @@ public class ScanPackage extends HttpServlet {
 				
 				for(ColunmEntiry colunm : colunms)
 				{
-					strbuff.append(ChemyooUtils.getLineSeparator());
+					strbuff.append(SystemUtils.getLineSeparator());
 					strbuff.append(colunm.getColunmName());
 					strbuff.append(" ");
 					strbuff.append(colunm.getDataType());
@@ -136,19 +139,18 @@ public class ScanPackage extends HttpServlet {
 					strbuff.append(",");
 				}
 				strbuff.delete(strbuff.length()-1, strbuff.length());
-				strbuff.append(ChemyooUtils.getLineSeparator());
+				strbuff.append(SystemUtils.getLineSeparator());
 				strbuff.append(") ");
-				strbuff.append(ChemyooUtils.getLineSeparator());
+				strbuff.append(SystemUtils.getLineSeparator());
 			}
 			this.excuteSql(strbuff.toString());
 		}
 	}
 	
 	private void excuteSql(String sql) {
-		try {
-			Connection connect = ConnectionPoolsManager.getInstanse().getConnection();
+		try (Connection connect = ConnectionPoolsManager.getInstanse().getConnection();
+				Statement statement = connect.createStatement();) {
 			connect.setAutoCommit(true);
-			Statement statement = connect.createStatement();
 			statement.execute(sql.toUpperCase());
 		} catch (SQLException e) {
 			e.printStackTrace();
