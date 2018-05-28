@@ -258,6 +258,10 @@ public class SystemUtils {
 		return System.getProperty("user.dir");
 	}
 	
+	/**
+	 * 获取当前工程类存放路径
+	 * @return
+	 */
 	public static String getClassPath() {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
 		URL resourceUrl = classLoader.getResource("/");
