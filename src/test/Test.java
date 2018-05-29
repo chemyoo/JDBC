@@ -85,9 +85,10 @@ public class Test {
 		try (FileWriter fw = new FileWriter("D:\\baidu.html");){
 			LoggerUtils.logWarn(Test.class, HttpClientUtils.getRedirectUrl("https://www.baidu.com"));
 			fw.write(HttpClientUtils.getRedirectUrl("https://www.baidu.com"));
-			Desktop.getDesktop().open(new File("D:\\baidu.html"));
-			
-			FileUtils.copyURLToFile(new URL("http://js.downcc.com/anzhuo/tengxunshipingpjb2017_downcc.apk"), new File("D:\\a.apk"));
+			String tempName = "D:/t.abc";
+			HttpClientUtils.dowload("http://www.lanrentuku.com/savepic/img/allimg/1609/5-160914192R2.gif",tempName);
+			//校正名称
+			Desktop.getDesktop().open(com.chemyoo.utils.IOUtils.validateFileName(new File(tempName)));
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 

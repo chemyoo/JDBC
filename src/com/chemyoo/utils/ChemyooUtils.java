@@ -397,7 +397,7 @@ public class ChemyooUtils {
 	 * @param 原生byte
 	 * @return 16进制字符串
 	 */
-	private static String bytesToHexString(byte[] b) {
+	public static String bytesToHexString(byte[] b) {
 
 		StringBuilder stringBuilder = new StringBuilder();
 		if (b == null || b.length <= 0) {
@@ -448,9 +448,7 @@ public class ChemyooUtils {
 	 *            文件路径
 	 * @return 文件头
 	 * @throws IOException
-	 * @Description 不推荐在读取大文件时使用，此方法需要再次读取内容到内存，当文件流不支持mark时，可用来替代
 	 */
-	@Deprecated
 	public static String getFileContent(File file) {
 		byte[] b = new byte[28];
 		ReadFileToStream reader = new ReadFileToStream(file);

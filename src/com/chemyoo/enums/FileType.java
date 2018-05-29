@@ -10,20 +10,37 @@ import com.chemyoo.utils.ChemyooUtils;
  */
 public enum FileType {
 
-	JPEG("FFD8FF", "jpeg"), PNG("89504E47", "png"), GIF("47494638", "gif"), TIFF("49492A00", "tiff"), BMP("424D",
-			"bmp"), DWG("41433130", "dwg"), PSD("38425053", "psd"), RTF("7B5C727466", "rtf"), XML("3C3F786D6C",
-					"xml"), HTML("68746D6C3E", "html"), EML("44656C69766572792D646174653A", "eml"), DBX(
-							"CFAD12FEC5FD746F",
-							"dbx"), PST("2142444E", "pst"), XLS_DOC("D0CF11E0", "xls/doc"), MDB("5374616E64617264204A",
-									"mdb"), WPD("FF575043", "wpd"), EPS("252150532D41646F6265", "eps"), PDF(
-											"255044462D312E",
-											"pdf"), QDF("AC9EBD8F", "qdf"), PWL("E3828596", "pwl"), ZIP("504B0304",
-													"zip"), RAR("52617221", "rar"), WAV("57415645", "wav"), AVI(
-															"41564920", "avi"), RAM("2E7261FD", "ram"), RM("2E524D46",
-																	"rmvb"), MPG("000001BA", "mpg"), MOV("6D6F6F76",
-																			"mov"), ASF("3026B2758E66CF11", "asf"), MID(
-																					"4D546864", "mid"), UNKNOWN(
-																							"undefined", "unknown");
+	JPEG("FFD8FF", "jpeg"), 
+	PNG("89504E47", "png"), 
+	GIF("47494638", "gif"), 
+	TIFF("49492A00", "tiff"), 
+	BMP("424D", "bmp"), 
+	DWG("41433130", "dwg"), 
+	PSD("38425053", "psd"), 
+	RTF("7B5C727466", "rtf"), 
+	XML("3C3F786D6C", "xml"), 
+	HTML("68746D6C3E", "html"), 
+	EML("44656C69766572792D646174653A", "eml"), 
+	DBX("CFAD12FEC5FD746F", "dbx"), 
+	PST("2142444E", "pst"), 
+	XLS_DOC("D0CF11E0", "xls/doc"), 
+	MDB("5374616E64617264204A", "mdb"), 
+	WPD("FF575043", "wpd"), 
+	EPS("252150532D41646F6265", "eps"), 
+	PDF("255044462D312E", "pdf"), 
+	QDF("AC9EBD8F", "qdf"), PWL("E3828596", "pwl"), 
+	ZIP("504B0304", "zip"), 
+	XLSX_DOCX("504B0304", "xlsx/docx"), 
+	RAR("52617221", "rar"), 
+	WAV("57415645", "wav"), 
+	AVI("41564920", "avi"), 
+	RAM("2E7261FD", "ram"), 
+	RM("2E524D46", "rmvb"), 
+	MPG("000001BA", "mpg"), 
+	MOV("6D6F6F76", "mov"),
+	ASF("3026B2758E66CF11", "asf"), 
+	MID("4D546864", "mid"), 
+	UNKNOWN("undefined", "unknown");
 
 	private String value = "";
 	private String name = "";

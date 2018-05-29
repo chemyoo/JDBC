@@ -2,17 +2,19 @@ package com.chemyoo.utils;
 
 import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.HttpURLConnection;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLConnection;
-
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+
+import com.chemyoo.enums.FileType;
 
 /**
  * @author 作者 : jianqing.liu
@@ -72,6 +74,59 @@ public class HttpClientUtils {
 	 */
 	public static void downloadFromInternet(String domain, String downLoadPath) throws IOException{
 		FileUtils.copyURLToFile(new URL(domain), new File(downLoadPath));
+	}
+	
+	public static String dowload(String domain,String fileName) {
+		InputStream inputStream = null;
+		InputStreamReader isReader = null;
+		BufferedReader bufferedReader = null;
+		String fileExt = null;
+		try (OutputStream outStream = new FileOutputStream(fileName)){
+			// 通过URL从互联网中读取一个网页
+			URL url = new URL(domain);
+			URLConnection urlConnection = url.openConnection();
+			HttpURLConnection httpConnection = (HttpURLConnection) urlConnection;
+			int responseCode = httpConnection.getResponseCode();
+			if (responseCode == HttpURLConnection.HTTP_OK) {
+				inputStream = httpConnection.getInputStream();
+				byte[] b = new byte[28];
+				for(int ch = -1,index = 0;(ch = inputStream.read()) != -1;index ++) {
+					outStream.write(ch);
+					if(index < 28) {
+						b[index] = (byte) ch;
+					}
+				}
+				fileExt = FileType.getFileType(ChemyooUtils.bytesToHexString(b));
+				outStream.flush();
+			} else {
+				logger.error("打开网页失败...");
+			}
+		} catch (Exception e) {
+			logger.error("打开网页发生异常:", e);
+		} finally {
+			IOUtils.closeQuietly(inputStream);
+			IOUtils.closeQuietly(isReader);
+			IOUtils.closeQuietly(bufferedReader);
+		}
+		return fileExt;
+	}
+	/**
+	 * 下载时同时进行文件命名校正
+	 * @param domain
+	 * @param fileName
+	 * @return
+	 * @throws IOException
+	 */
+	public static String downloadFileWithCheckFileType(String domain,String fileName) throws IOException {
+		String fileType = dowload(domain, fileName);
+		String finalName = fileName;
+		if(fileType != FileType.UNKNOWN.getName() && !fileName.endsWith(fileType) && 
+				!(fileName.endsWith(FileType.XLSX_DOCX.getName()) && fileType == FileType.ZIP.getName())) {
+			finalName = fileName+ "." + fileType;
+			FileUtils.copyFile(new File(fileName), new File(finalName));
+			FileUtils.deleteQuietly(new File(fileName));
+		}
+		return finalName;
 	}
 	
 }
