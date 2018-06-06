@@ -50,6 +50,8 @@ public class Test {
 		test.a.toUpperCase();
 
 		System.err.println(Roles.findRoleNameByCode(4));
+		
+		System.err.println(HttpClientUtils.getRedirectUrl("http://www.5857.com/pcbz/76056.html"));
 
 		System.err.println(ChemyooUtils.formatDecimalDigits(4, NumberFormatBase.Quanternary));
 

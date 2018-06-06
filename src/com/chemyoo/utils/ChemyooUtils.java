@@ -621,6 +621,44 @@ public class ChemyooUtils {
 		}
 	}
 
+	public static List<String> getTitles(String path){
+		InputStream is = null;
+		Workbook workbook = null;
+		List<String> title = new ArrayList<>();
+		try {
+			if (isNotEmpty(path)) {
+				if (path.endsWith(OFFICE_EXCEL_2003_POSTFIX)) {
+					is = new FileInputStream(path);
+					workbook = new HSSFWorkbook(is);
+				} else if (path.endsWith(OFFICE_EXCEL_2010_POSTFIX)) {
+					is = new FileInputStream(path);
+					workbook = new XSSFWorkbook(is);
+				}
+			}
+			if (workbook != null) {
+				int numSheet = workbook.getNumberOfSheets();
+				if (numSheet < 1) {
+					throw new IOException("读取Excel表格出现异常,表格中没有可用的Sheet...");
+				}
+				Sheet sheet = workbook.getSheetAt(0);
+				// 获取标题行
+				int rowNum = sheet.getLastRowNum();
+				Row row;
+				Map<String, Object> mapRow = null;
+				if (rowNum > 1) {
+					row = sheet.getRow(0);
+					title.add("ID");
+					for (int i = 0, size = row.getLastCellNum(); i < size; i++) {
+						title.add(row.getCell(i).getStringCellValue());
+					}
+				}
+			} 
+		}catch (Exception e) {
+			e.printStackTrace();
+		}
+		return title;
+	}
+	
 	/** 通用读取Excel表格的方法，只读第一页 */
 	public static List<Map<String, Object>> commonReadExcelData(String path) {
 		InputStream is = null;
