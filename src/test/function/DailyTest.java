@@ -14,6 +14,7 @@ import org.xml.sax.SAXException;
 import com.chemyoo.utils.HttpClientUtils;
 import com.chemyoo.utils.LoggerUtils;
 import com.chemyoo.utils.PropertiesUtil;
+import com.chemyoo.utils.SystemUtils;
 
 /**
  * @author 作者 : jianqing.liu
@@ -83,5 +84,7 @@ public class DailyTest {
 		
 		
 		PropertiesUtil.getProperties("databaseConfig.properties");
+		
+		LoggerUtils.logWarn(DailyTest.class, SystemUtils.getTomcatHome());
 	}
 }

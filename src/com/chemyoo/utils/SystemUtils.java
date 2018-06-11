@@ -292,5 +292,12 @@ public class SystemUtils {
 		}
 		return resourceUrl.getPath();
 	}
+	/**
+	 * 获得tomcat安装路径
+	 * @return
+	 */
+	public static String getTomcatHome() {
+		return System.getProperty("catalina.home");
+	}
 
 }

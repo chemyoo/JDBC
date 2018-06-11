@@ -2,7 +2,10 @@ package com.chemyoo.init;
 
 import com.chemyoo.connect.pool.ConnectionPoolsManager;
 import com.chemyoo.connect.pool.ConnectionPools;
+import com.chemyoo.utils.LoggerUtils;
+import com.chemyoo.utils.SystemUtils;
 import com.chemyoo.utils.WebRoot;
+
 import org.apache.log4j.Logger;
 
 import javax.servlet.ServletConfig;
@@ -26,6 +29,7 @@ public class InitServlet extends HttpServlet {
 	@Override
 	public void init(ServletConfig config) throws ServletException {
 		super.init(config);
+		LoggerUtils.logWarn(InitServlet.class, SystemUtils.getTomcatHome());
 		ServletContext context = config.getServletContext();
 		String webAppRootKey = context.getInitParameter("webAppRootKey");
 		String webRoot = context.getRealPath("/");
