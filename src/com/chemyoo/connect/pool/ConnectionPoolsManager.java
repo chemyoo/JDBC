@@ -10,6 +10,8 @@ public class ConnectionPoolsManager {
 	private static ConnectionPools instanse = null;
 
 	public static Properties DbProps = null;
+	
+	private ConnectionPoolsManager(){}
 
 	static {
 		String webRoot = System.getProperty("web.root");
@@ -19,13 +21,13 @@ public class ConnectionPoolsManager {
 	/** 获取连接池 */
 	public static ConnectionPools getInstanse() {
 		if (instanse == null) {
-			CreateConnectionPools();
+			createConnectionPools();
 		}
 		return instanse;
 	}
 
 	/** 初始化连接池 */
-	private synchronized static void CreateConnectionPools() {
+	private static synchronized void createConnectionPools() {
 		if (instanse == null)
 			instanse = ConnectionPools.getPools();
 	}

@@ -276,12 +276,16 @@ public class SystemUtils {
 	}
 
 	/**
-	 * 获取当前工程类存放路径
+	 * 获取当前工程类(.class)存放路径
 	 * 
 	 * @return
 	 */
 	public static String getClassPath() {
 		ClassLoader classLoader = Thread.currentThread().getContextClassLoader();
+		/**
+		 * 同上
+		 * SystemUtils.class.getClassLoader().getResource("").getPath();
+		 */
 		URL resourceUrl = classLoader.getResource("/");
 		if (resourceUrl == null) {
 			resourceUrl = classLoader.getResource("");
