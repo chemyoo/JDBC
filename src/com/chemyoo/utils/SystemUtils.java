@@ -276,7 +276,7 @@ public class SystemUtils {
 	}
 
 	/**
-	 * 获取当前工程类(.class)存放路径
+	 * 获取当前工程类(.class)存放根路径
 	 * 
 	 * @return
 	 */
