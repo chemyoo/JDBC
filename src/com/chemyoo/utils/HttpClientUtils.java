@@ -55,6 +55,7 @@ public class HttpClientUtils {
 			} else {
 				logger.error("打开网页失败...");
 			}
+			httpConnection.disconnect();
 		} catch (Exception e) {
 			logger.error("打开网页发生异常:", e);
 		} finally {
