@@ -20,7 +20,7 @@ public class ConnectUrlTest {
 		String res;
 		try {
 			res = HttpClientUtils.getRedirectUrl(
-					"http://localhost:8080/resdata-nlp/wordAnalysis?text=" 
+					"http://localhost:8080/resdata-nlp/wordAnalysis.do?text=" 
 			+ URLEncoder.encode("小明和小红一起去上学了","utf-8"));
 			JSONArray json = JSONArray.fromObject(res);
 			@SuppressWarnings("unchecked")
