@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.StringReader;
+import java.util.Set;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -16,11 +17,13 @@ import org.xml.sax.SAXException;
 
 import com.chemyoo.file.ReadLocalFiles;
 import com.chemyoo.utils.HttpClientUtils;
+import com.chemyoo.utils.JsonUtils;
 import com.chemyoo.utils.LoggerUtils;
 import com.chemyoo.utils.PropertiesUtil;
 import com.chemyoo.utils.ReadFileToStream;
 import com.chemyoo.utils.SystemUtils;
 
+import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
 /**
@@ -98,15 +101,24 @@ public class DailyTest {
 		ReadLocalFiles reader = new ReadLocalFiles("E:/Tencent Rec File", "json");
 		reader.setReadOnlyOne();
 		File[] file = reader.readFiles();
-		ReadFileToStream stream = new ReadFileToStream(file[0]);
-		InputStream inputStream= stream.getInputStream();
-		JSONObject json;
-		try {
-			json = JSONObject.fromObject(IOUtils.toString(inputStream));
-			System.err.println(json);
-			stream.closeQuietly();
-		} catch (IOException e) {
-			e.printStackTrace();
+//		ReadFileToStream stream = new ReadFileToStream(file[0]);
+//		InputStream inputStream= stream.getInputStream();
+		JsonUtils util = new JsonUtils("gbk");
+		JSONObject json = util.readJsonObject(file[0]);
+		Set<String> keys = json.keySet();
+		JSONObject tempJson;
+		JSONArray jsonArray = new JSONArray();
+		for(String key : keys) {
+			if(key.length() == 4) {
+				tempJson = new JSONObject();
+				tempJson.put("code", key);
+				tempJson.put("city", json.get(key));
+				jsonArray.add(tempJson);
+			}
 		}
+		if(!jsonArray.isEmpty()) {
+			util.writeJson(jsonArray, "D:/res.json");
+		}
+		System.err.println(json);
 	}
 }
