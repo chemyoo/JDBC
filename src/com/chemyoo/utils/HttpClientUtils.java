@@ -13,7 +13,6 @@ import java.net.URLConnection;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
-
 import com.chemyoo.enums.FileType;
 
 /**
@@ -128,6 +127,42 @@ public class HttpClientUtils {
 			FileUtils.deleteQuietly(new File(fileName));
 		}
 		return finalName;
+	}
+	
+	public static String post(String text,String link) {
+		String result = "";
+        try {
+            URL url = new URL(link);
+            HttpURLConnection conn = (HttpURLConnection) url.openConnection();
+            conn.setRequestMethod("POST");
+            conn.setDoOutput(true);
+            conn.setDoInput(true);
+            conn.setUseCaches(false);
+            conn.setRequestProperty("Connection", "Keep-Alive");//保持长链接
+            conn.setRequestProperty("Charset", "UTF-8");
+            // 设置文件类型:
+            conn.setRequestProperty("Content-Type","application/x-www-form-urlencoded");
+            // 设置接收类型否则返回415错误
+            // conn.setRequestProperty("accept","*/*")此处为设置接受所有类型，以此来防范返回415;
+            conn.setRequestProperty("accept","application/json");
+            // 往服务器里面发送数据
+            if (text != null && !text.isEmpty()) {
+                byte[] writebytes = ("text=" + text).getBytes();
+                // 设置文件长度
+                conn.setRequestProperty("Content-Length", String.valueOf(writebytes.length));
+                OutputStream outwritestream = conn.getOutputStream();
+                outwritestream.write(writebytes);
+                outwritestream.flush();
+                outwritestream.close();
+            }
+            if (conn.getResponseCode() == HttpURLConnection.HTTP_OK) {
+                result = IOUtils.toString(conn.getInputStream());
+            }
+            conn.disconnect();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+		return result;
 	}
 	
 }
