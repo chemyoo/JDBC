@@ -22,6 +22,10 @@ public abstract class LoggerUtils {
 	public static void logWarn(Class<?> clazz, String message) {
 		log.warn(LoggerUtils.buildString(clazz, message));
 	}
+	
+	public static void logInfo(Class<?> clazz, String message) {
+		log.info(LoggerUtils.buildString(clazz, message));
+	}
 
 	public static void logError(Class<?> clazz, String message, Exception e) {
 		log.error(LoggerUtils.buildString(clazz, message), e);
