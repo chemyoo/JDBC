@@ -13,6 +13,8 @@ import java.net.URLConnection;
 import org.apache.commons.io.FileUtils;
 import org.apache.commons.io.IOUtils;
 import org.apache.log4j.Logger;
+
+import com.chemyoo.entiry.Charset;
 import com.chemyoo.enums.FileType;
 
 /**
@@ -48,7 +50,7 @@ public class HttpClientUtils {
 			int responseCode = httpConnection.getResponseCode();
 			if (responseCode == HttpURLConnection.HTTP_OK) {
 				inputStream = httpConnection.getInputStream();
-				isReader = new InputStreamReader(inputStream);
+				isReader = new InputStreamReader(inputStream, Charset.UTF_8.getCharset());
 				bufferedReader = new BufferedReader(isReader);
 				data = IOUtils.toString(bufferedReader);
 			} else {

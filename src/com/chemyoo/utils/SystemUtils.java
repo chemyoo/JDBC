@@ -4,10 +4,10 @@ import java.net.URL;
 import java.util.Properties;
 
 /**
- * @author 作者 : jianqing.liu
- * @version 创建时间：2018年5月25日 上午11:51:11
- * @since 2018年5月25日 上午11:51:11
- * @description 类说明
+ * @author jianqing.liu
+ * @version 2018/5/25 11:51:11 AM
+ * @since 2018/5/25 11:51:11 AM
+ * @description none.
  */
 public class SystemUtils {
 
