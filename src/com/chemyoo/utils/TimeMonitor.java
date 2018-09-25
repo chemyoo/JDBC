@@ -25,9 +25,10 @@ public class TimeMonitor {
 					long speed = date.getTime() - start;
 					String ms = ("00" + (speed - (speed / (1000) * 1000)));
 					String timespeed = speed / (1000) + "." + ms.substring(ms.length() - 3) + "s";
-					System.err.println(this.getName().trim() + " : " + timespeed);
+					LoggerUtils.logInfo(getClass(), this.getName().trim() + " : " + timespeed);
 				} catch (InterruptedException e) {
-					e.printStackTrace();
+					LoggerUtils.logError(getClass(), e.getMessage(), e);
+					Thread.currentThread().interrupt();
 				}
 			}
 		};
