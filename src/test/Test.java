@@ -26,6 +26,7 @@ import com.chemyoo.enums.FileType;
 import com.chemyoo.enums.NumberFormatBase;
 import com.chemyoo.enums.Roles;
 import com.chemyoo.file.ReadLocalFiles;
+import com.chemyoo.pub.SecurityCode;
 import com.chemyoo.utils.ChemyooUtils;
 import com.chemyoo.utils.HttpClientUtils;
 import com.chemyoo.utils.LocationUtils;
@@ -42,18 +43,27 @@ public class Test {
 
 		String str = "杩滅▼涓绘満寮鸿揩鍏抽棴浜嗕竴涓幇鏈夌殑杩炴帴";
 		System.out.println(ChemyooUtils.encode2UTF8(str, "GBK"));
+		
+		System.err.println(ChemyooUtils.formatDecimalDigits(4, NumberFormatBase.Binary));
 
 		System.err.println();
 		Test test = new Test();
 		test.changeValue(test.a);
 		System.err.println(test.a);
 		test.a.toUpperCase();
+		
+		List<Test> list1 = new ArrayList<>();
+		list1.add(test);
+		List<Test> copy = ChemyooUtils.listCopyValue(list1);
+		test.a = "change";
+		
+		System.err.println(SecurityCode.encrypt("12345678"));
 
 		System.err.println(Roles.findRoleNameByCode(4));
 		
+		System.err.println(Roles.ROOT == null);
+		
 		System.err.println(HttpClientUtils.getRedirectUrl("http://www.5857.com/pcbz/76056.html"));
-
-		System.err.println(ChemyooUtils.formatDecimalDigits(4, NumberFormatBase.Quanternary));
 
 		System.err.println("日期验证：" + TimeUtils.validateDay("2018-03-01"));
 
@@ -91,6 +101,7 @@ public class Test {
 			HttpClientUtils.dowload("http://www.lanrentuku.com/savepic/img/allimg/1609/5-160914192R2.gif",tempName);
 			//校正名称
 			Desktop.getDesktop().open(com.chemyoo.utils.IOUtils.validateFileName(new File(tempName)));
+			HttpClientUtils.downloadFromInternet("http://download.2345.cc/2345explorer/2345explorer_v9.4.2.17629.up.exe", "D:/2345explorer_v9.4.2.17629.up.exe");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 

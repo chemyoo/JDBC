@@ -1,11 +1,22 @@
 package com.chemyoo.file;
 
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 
 import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileSystemView;
+
+import org.apache.commons.io.FileUtils;
+
+import com.chemyoo.enums.FileType;
+import com.chemyoo.utils.ChemyooUtils;
 import com.chemyoo.utils.LoggerUtils;
+import com.chemyoo.utils.ReadFileToStream;
 
 public class ReadLocalFiles {
 
@@ -106,12 +117,28 @@ public class ReadLocalFiles {
 	 * @param args
 	 */
 	public static void main(String[] args) {
-		ReadLocalFiles readFiles = new ReadLocalFiles("E:/", "xls", "jpg", "zip");
+		ReadLocalFiles readFiles = new ReadLocalFiles("E:/2345Downloads", "ozip");
 		readFiles.setReadOnlyOne();
 		File[] files = readFiles.readFiles();
 		if (files != null)
 			for (File file : files) {
-				System.err.println(file.getAbsolutePath());
+				ReadFileToStream reader = new ReadFileToStream(file);
+				InputStream stream = reader.getInputStream();
+			    try {
+					OutputStream outputStream = new FileOutputStream(new File("D:/z.zip"));
+				        int byteCount = 0;
+				        byte[] bytes = new byte[1024];
+				        while ((byteCount = stream.read(bytes)) != -1)
+				        {
+				            outputStream.write(bytes);
+				        }
+				        outputStream.close();
+				} catch (FileNotFoundException e) {
+					e.printStackTrace();
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+				reader.closeQuietly();
 			}
 	}
 

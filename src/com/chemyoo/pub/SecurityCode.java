@@ -62,4 +62,10 @@ public class SecurityCode {
 	private static boolean emptyString(String str) {
 		return (str == null || str.trim().isEmpty());
 	}
+	
+	public static void main(String[] args) {
+		for(int i = 0; i < 26; i++) {
+			System.err.println((char)(65+i)+":" + SecurityCode.encrypt("" + (char)(65+i)));
+		}
+	}
 }

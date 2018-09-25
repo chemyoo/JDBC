@@ -135,6 +135,7 @@ public class ConnectionPools implements DataSource {
 
 		} catch (InterruptedException e) {
 			e.printStackTrace();
+			Thread.currentThread().interrupt();
 		}
 		return connection;
 	}

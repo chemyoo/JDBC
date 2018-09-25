@@ -738,12 +738,12 @@ public class ChemyooUtils {
 	}
 
 	public static String formatDecimalDigits(long i, NumberFormatBase base) {
-		String str = EMPTY;
+		StringBuilder str = new StringBuilder();
 		int baseNumber = base.getNumber();
 		for (long n = i; n > 0; n /= baseNumber) {
-			str = (n % baseNumber) + str;
+			str.append(n % baseNumber);
 		}
-		return str;
+		return str.reverse().toString();
 	}
 
 	/** 处理EXCEL导出时，IE浏览器文件名乱码的问题 */
@@ -800,5 +800,20 @@ public class ChemyooUtils {
 			}
 		}
 		return str;
+	}
+	
+	/**
+	 * Shallow Copy（潜复制）
+	 * @param list
+	 * @return
+	 */
+	public static <T> List<T> listCopyValue(List<T> list) {
+		List<T> copy = new ArrayList<>();
+		if(isNotEmpty(list)) {
+			for(T t : list) {
+				copy.add(t);
+			}
+		}
+		return copy;
 	}
 }
