@@ -5,10 +5,10 @@ import java.util.Date;
 import java.util.concurrent.CountDownLatch;
 
 /**
- * @author 作者 : jianqing.liu
- * @version 创建时间：2018年1月5日 上午11:36:50
- * @since 2018年1月5日 上午11:36:50
- * @description 类说明
+  * @author jianqing.liu
+ * @version 2018/5/25 11:51:11 AM
+ * @since 2018/5/25 11:51:11 AM
+ * @description none.
  */
 public class TimeMonitor {
 	private CountDownLatch countDownLatch = new CountDownLatch(1);
