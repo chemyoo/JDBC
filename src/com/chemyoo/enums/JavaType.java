@@ -13,7 +13,7 @@ import com.chemyoo.annotations.Field;
  */
 public enum JavaType {
 
-	Integer(Integer.class, "INT"), Double(Double.class, "NUMBER"), Long(Long.class, "INT"), Short(Short.class,
+	Integer(Integer.class, "INT"), Double(Double.class, "NUMBER"), Long(Long.class, "NUMBER"), Short(Short.class,
 			"INT"), Char(Character.class, "CHAR"), String(String.class, "VARCHAR2"), BigDecimal(BigDecimal.class,
 					"NUMBER"), Date(Date.class,
 							"TIMESTAMP"), Float(Float.class, "NUMBER"), Boolean(Boolean.class, "char(2)");

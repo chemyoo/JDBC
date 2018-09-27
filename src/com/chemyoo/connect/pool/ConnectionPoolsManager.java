@@ -14,8 +14,7 @@ public class ConnectionPoolsManager {
 	private ConnectionPoolsManager(){}
 
 	static {
-		String webRoot = System.getProperty("web.root");
-		DbProps = PropertiesUtil.getProperties(webRoot + "WEB-INF/classes/databaseConfig.properties");
+		DbProps = PropertiesUtil.getProperties("databaseConfig.properties");
 	}
 
 	/** 获取连接池 */

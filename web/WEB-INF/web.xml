@@ -5,10 +5,6 @@
 		  http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
            version="2.5">
     <display-name>Jdbc</display-name>
-    <servlet-mapping>
-        <servlet-name>Faces Servlet</servlet-name>
-        <url-pattern>*.xhtml</url-pattern>
-    </servlet-mapping>
     <welcome-file-list>
         <welcome-file>index.jsp</welcome-file>
     </welcome-file-list>
@@ -17,11 +13,7 @@
         <param-name>webAppRootKey</param-name>
         <param-value>web.root</param-value>
     </context-param>
-    <context-param>
-        <param-name>javax.faces.CONFIG_FILES</param-name>
-        <param-value>/faces-config.xml</param-value>
-    </context-param>
-
+    
     <servlet>
         <servlet-name>initServlet</servlet-name>
         <servlet-class>com.chemyoo.init.InitServlet</servlet-class>
@@ -29,11 +21,6 @@
             <!--<param-name>log4j</param-name>-->
             <!--<param-value>WEB-INF/log4j.properties</param-value>-->
         <!--</init-param>-->
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet>
-        <servlet-name>Faces Servlet</servlet-name>
-        <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     
@@ -46,5 +33,22 @@
         </init-param>
         <load-on-startup>2</load-on-startup>
     </servlet>
+    
+    <error-page>  
+        <error-code>404</error-code>  
+        <location>/error/error.jsp</location>  
+    </error-page> 
+    <error-page>  
+        <error-code>403</error-code>  
+        <location>/error/error.jsp</location>  
+    </error-page> 
+    <error-page>  
+        <error-code>405</error-code>  
+        <location>/error/error.jsp</location>  
+    </error-page>
+    <error-page>  
+        <error-code>500</error-code>  
+        <location>/error/error.jsp</location>  
+    </error-page>
 
 </web-app>

@@ -2,9 +2,6 @@ package com.chemyoo.bean;
 
 import java.io.Serializable;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
-
 import com.chemyoo.annotations.Field;
 import com.chemyoo.annotations.NotField;
 import com.chemyoo.annotations.Table;
@@ -13,7 +10,7 @@ import com.chemyoo.annotations.Table;
  * Stores entity. @author MyEclipse Persistence Tools
  */
 @Table(name = "stores")
-public class Stores implements Serializable {
+public class Stores extends Model implements Serializable {
 
 	/**
 	 * serialVersionUID
@@ -25,17 +22,11 @@ public class Stores implements Serializable {
 	@Field(name = "STORE_ID")
 	private String storeid;
 	@Field(name = "STORENAME")
-	private String storename;
+	private String storeName;
 	@Field(name = "TS")
 	private Date ts;
 	@Field(name = "DR")
 	private Integer dr;
-	@NotField
-	private Set productInfos = new HashSet(0);
-	@NotField
-	private Set checkIns = new HashSet(0);
-	@NotField
-	private Set checkOuts = new HashSet(0);
 
 	// Constructors
 
@@ -49,16 +40,12 @@ public class Stores implements Serializable {
 	}
 
 	/** full constructor */
-	public Stores(String pkStore, String storeid, String storename, Date ts, Integer dr, Set productInfos, Set checkIns,
-			Set checkOuts) {
+	public Stores(String pkStore, String storeid, String storename, Date ts, Integer dr) {
 		this.pkStore = pkStore;
 		this.storeid = storeid;
-		this.storename = storename;
+		this.storeName = storename;
 		this.ts = ts;
 		this.dr = dr;
-		this.productInfos = productInfos;
-		this.checkIns = checkIns;
-		this.checkOuts = checkOuts;
 	}
 
 	// Property accessors
@@ -79,12 +66,12 @@ public class Stores implements Serializable {
 		this.storeid = storeid;
 	}
 
-	public String getStorename() {
-		return this.storename;
+	public String getStoreName() {
+		return this.storeName;
 	}
 
-	public void setStorename(String storename) {
-		this.storename = storename;
+	public void setStoreName(String storename) {
+		this.storeName = storename;
 	}
 
 	public Date getTs() {
@@ -103,34 +90,4 @@ public class Stores implements Serializable {
 		this.dr = dr;
 	}
 
-	public Set getProductInfos() {
-		return this.productInfos;
-	}
-
-	public void setProductInfos(Set productInfos) {
-		this.productInfos = productInfos;
-	}
-
-	public Set getCheckIns() {
-		return this.checkIns;
-	}
-
-	public void setCheckIns(Set checkIns) {
-		this.checkIns = checkIns;
-	}
-
-	public Set getCheckOuts() {
-		return this.checkOuts;
-	}
-
-	public void setCheckOuts(Set checkOuts) {
-		this.checkOuts = checkOuts;
-	}
-
-	@Override
-	public String toString() {
-		return "Stores{" + "pkStore='" + pkStore + '\'' + ", storeid='" + storeid + '\'' + ", storename='" + storename
-				+ '\'' + ", ts='" + ts + '\'' + ", dr=" + dr + ", productInfos=" + productInfos + ", checkIns="
-				+ checkIns + ", checkOuts=" + checkOuts + '}';
-	}
 }

@@ -54,7 +54,7 @@ public class ChemyooUtils {
 
 	private static final long MILLS_OF_DAY = 1000 * 60 * 60 * 24;
 
-	private static final String EMPTY = "";
+	public static final String EMPTY = "";
 
 	/** 默认文字编码 */
 	private static final String DEFUALT_CHARSET = "UTF-8";
@@ -94,6 +94,14 @@ public class ChemyooUtils {
 
 	public static <K, V> boolean isNotEmpty(Map<K, V> map) {
 		return isEmpty(map);
+	}
+	
+	public static boolean isNotEmpty(String str) {
+		return !isEmpty(str);
+	}
+	
+	public static boolean isEmpty(String str) {
+		return str == null || str.trim().length() == 0;
 	}
 
 	/**

@@ -6,13 +6,9 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-
-import org.apache.commons.io.IOUtils;
-
 import com.chemyoo.annotations.Field;
 import com.chemyoo.annotations.NotField;
 import com.chemyoo.annotations.Table;
@@ -112,16 +108,17 @@ public class ScanPackage extends HttpServlet {
 
 	private void createTables(List<TableEntiry> tables) throws ServletException {
 		if (ChemyooUtils.isNotEmpty(tables)) {
+			List<String> sqls = new ArrayList<>();
 			List<ColunmEntiry> colunms = null;
-			StringBuffer strbuff = new StringBuffer();
 			for (TableEntiry table : tables) {
+				StringBuffer strbuff = new StringBuffer();
 				colunms = table.getColunms();
 				if (ChemyooUtils.isEmpty(colunms)) {
 					strbuff = null;
 					throw new ServletException("The table entiry not include any field");
 				}
 				// strbuff.append("IF NOT EXSITS()");
-				strbuff.append("create table ");
+				strbuff.append("CREATE TABLE ");
 				strbuff.append(table.getTableName());
 				strbuff.append("( ");
 
@@ -131,25 +128,37 @@ public class ScanPackage extends HttpServlet {
 					strbuff.append(" ");
 					strbuff.append(colunm.getDataType());
 					strbuff.append(" ");
-					strbuff.append((colunm.isPrimaryKey()) ? "primary key" : "");
+					strbuff.append((colunm.isPrimaryKey()) ? "PRIMARY KEY" : "");
 					strbuff.append(",");
 				}
 				strbuff.delete(strbuff.length() - 1, strbuff.length());
 				strbuff.append(SystemUtils.getLineSeparator());
 				strbuff.append(") ");
 				strbuff.append(SystemUtils.getLineSeparator());
+				sqls.add(strbuff.toString());
 			}
-			this.excuteSql(strbuff.toString());
+			this.excuteSql(sqls);
 		}
 	}
 
-	private void excuteSql(String sql) {
-		try (Connection connect = ConnectionPoolsManager.getInstanse().getConnection();
-				Statement statement = connect.createStatement();) {
-			connect.setAutoCommit(true);
-			statement.execute(sql.toUpperCase());
+	private void excuteSql(List<String> sqls) {
+		Connection connect = null;
+		try {
+			connect = ConnectionPoolsManager.getInstanse().getConnection();
 		} catch (SQLException e) {
 			e.printStackTrace();
+		}
+		try (
+				Statement statement = connect.createStatement();
+			) {
+			connect.setAutoCommit(true);
+			for(String sql : sqls)
+				statement.addBatch(sql);
+			statement.executeBatch();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		} finally {
+			ConnectionPoolsManager.getInstanse().freeConnection(connect);
 		}
 	}
 }

@@ -1,10 +1,15 @@
 package com.chemyoo.connect.pool;
 
 import javax.sql.DataSource;
+
+import oracle.sql.TIMESTAMP;
+
 import java.io.PrintWriter;
 import java.lang.reflect.Field;
+import java.math.BigDecimal;
 import java.sql.*;
 import java.util.*;
+import java.util.Date;
 import java.util.logging.Logger;
 
 public class ConnectionPools implements DataSource {
@@ -158,7 +163,7 @@ public class ConnectionPools implements DataSource {
 	public synchronized void freeConnection(Connection connection) {
 		if (connection != null) {
 			for (ConnectionObject connectionObj : connections) {
-				if (connection.equals(connectionObj.getConnection())) {
+				if (connectionObj.getConnection().equals(connection)) {
 					connectionObj.freeConnection();
 					break;
 				}
@@ -295,7 +300,7 @@ public class ConnectionPools implements DataSource {
 					if (f.getName().equalsIgnoreCase(rsmd.getColumnLabel(i).replace("_", ""))) {
 						boolean flag = f.isAccessible();
 						f.setAccessible(true);
-						f.set(obj, value);
+						f.set(obj, castValue(f, value));
 						f.setAccessible(flag);
 						// PropertyDescriptor pd = new PropertyDescriptor(f.getName(), clazz);
 						// Method setter = pd.getWriteMethod();
@@ -307,6 +312,42 @@ public class ConnectionPools implements DataSource {
 		}
 		return list;
 	}
+	
+	private Object castValue(Field field, Object value) {
+        if (value instanceof BigDecimal) {
+            BigDecimal bigDecimal = (BigDecimal) value;
+            String type = field.getType().getSimpleName().toLowerCase().intern();
+            switch (type) {
+                case "long":
+                    value = bigDecimal.longValue();
+                    break;
+                case "int":
+                case "integer":
+                    value = bigDecimal.intValue();
+                    break;
+                case "double":
+                    value = bigDecimal.doubleValue();
+                    break;
+                case "float":
+                    value = bigDecimal.floatValue();
+                    break;
+                case "short":
+                    value = bigDecimal.shortValue();
+                    break;
+                case "byte":
+                    value = bigDecimal.byteValue();
+                    break;
+                default:
+            }
+        } else if(value instanceof TIMESTAMP) {
+        	try {
+				value = new Date(((TIMESTAMP)value).timestampValue().getTime());
+			} catch (SQLException e) {
+				e.printStackTrace();
+			}
+        }
+        return value;
+    }
 
 	@SuppressWarnings("unchecked")
 	public synchronized <K, V> List<Map<K, V>> aliasToMap(ResultSet resultSet) throws SQLException {

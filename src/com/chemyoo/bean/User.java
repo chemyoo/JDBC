@@ -13,7 +13,7 @@ import com.chemyoo.utils.TimeUtils;
  * @description 类说明
  */
 @Table(name = "user_info")
-public class User {
+public class User extends Model{
 
 	@Field(length = 32, primaryKey = true)
 	private String pk;
