@@ -20,12 +20,12 @@ public abstract class BaseServlet extends HttpServlet {
 	 */
 	private static final long serialVersionUID = -5341216471522033720L;
 	
-	public void process(HttpServletRequest req, HttpServletResponse resp, String res) throws IOException {
+	public void process(HttpServletRequest req, HttpServletResponse resp, Object res) throws IOException {
 		String charset = Charset.GB2312.getCharset();
 		req.setCharacterEncoding(charset);//加这句是为了适应POST请求乱码...
 		resp.setCharacterEncoding(charset);    
 		resp.setContentType("application/json; charset=" + charset);
-		resp.getWriter().write(res);
+		resp.getWriter().write(res.toString());
 	}
 	
 }

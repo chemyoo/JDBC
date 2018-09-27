@@ -28,7 +28,7 @@ public class FirstServlet extends BaseServlet {
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 		ConnectionService<User> service = new ConnectionService<User>(){};
 		try {
-			super.process(req, resp, service.findById("20180927153002799J").toString());
+			super.process(req, resp, service.findById("20180927153002799J"));
 		} catch (IOException e) {
 			e.printStackTrace();
 		}

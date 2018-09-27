@@ -25,7 +25,7 @@ public class FreeConnectSize extends BaseServlet {
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) {
 		try {
-			super.process(req, resp, ConnectionPoolsManager.getInstanse().freeSize() + "");
+			super.process(req, resp, ConnectionPoolsManager.getInstanse().freeSize());
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
