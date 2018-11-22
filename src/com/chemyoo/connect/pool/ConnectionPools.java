@@ -148,14 +148,10 @@ public class ConnectionPools implements DataSource {
 	private synchronized Connection newConnection(boolean isFree) throws SQLException {
 		// String sql="select count(1) from hr.countries";
 		Connection conn = null;
-		try {
-			Class.forName(DbProps.getProperty("driverClassName"));
-			conn = DriverManager.getConnection(url, user, password);
-			if (conn != null) {
-				this.addConnection(conn, isFree);
-			}
-		} catch (ClassNotFoundException e) {
-			e.printStackTrace();
+//		Class.forName(DbProps.getProperty("driverClassName"))
+		conn = DriverManager.getConnection(url, user, password);
+		if (conn != null) {
+			this.addConnection(conn, isFree);
 		}
 		return conn;
 	}
