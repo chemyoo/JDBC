@@ -13,10 +13,16 @@ import com.chemyoo.annotations.Field;
  */
 public enum JavaType {
 
-	Integer(Integer.class, "INT"), Double(Double.class, "NUMBER"), Long(Long.class, "NUMBER"), Short(Short.class,
-			"INT"), Char(Character.class, "CHAR"), String(String.class, "VARCHAR2"), BigDecimal(BigDecimal.class,
-					"NUMBER"), Date(Date.class,
-							"TIMESTAMP"), Float(Float.class, "NUMBER"), Boolean(Boolean.class, "char(2)");
+	INTEGER(Integer.class, "INT"), 
+	DOUBLE(Double.class, "NUMBER"),
+	LONG(Long.class, "NUMBER"), 
+	SHORT(Short.class,"INT"), 
+	CHAR(Character.class, "CHAR"), 
+	STRING(String.class, "VARCHAR2"), 
+	BIGDECIMAL(BigDecimal.class, "NUMBER"), 
+	DATE(Date.class, "TIMESTAMP"), 
+	FLOAT(Float.class, "NUMBER"), 
+	BOOLEAN(Boolean.class, "char(2)");
 
 	private Class<?> clazz;
 	private String sqlType;
@@ -34,26 +40,10 @@ public enum JavaType {
 	}
 
 	/**
-	 * @param clazz
-	 *            the clazz to set
-	 */
-	public void setClazz(Class<?> clazz) {
-		this.clazz = clazz;
-	}
-
-	/**
 	 * @return the sqlType
 	 */
 	public String getSqlType() {
 		return sqlType;
-	}
-
-	/**
-	 * @param sqlType
-	 *            the sqlType to set
-	 */
-	public void setSqlType(String sqlType) {
-		this.sqlType = sqlType;
 	}
 
 	public static String getSqlType(Class<?> dataType, Field field) {
@@ -66,7 +56,7 @@ public enum JavaType {
 					if (field != null) {
 						length = field.length();
 					}
-					if (type == JavaType.Char || type == JavaType.String) {
+					if (type == JavaType.CHAR || type == JavaType.STRING) {
 						sqlType = type.getSqlType() + "(" + length + ")";
 					} else if (dataType == type.getClazz()) {
 						sqlType = type.getSqlType();

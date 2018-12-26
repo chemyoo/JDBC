@@ -8,7 +8,11 @@ package com.chemyoo.enums;
  */
 public enum Roles {
 
-	UNKNOWN(-1, "未知代号"), VISITOR(1, "游客/访客/单点登入用户"), COMMON(2, "普通用户"), ADMINISTRATOR(3, "管理员"), ROOT(4, "超级管理员");
+	UNKNOWN(-1, "未知代号"), 
+	VISITOR(1, "游客/访客/单点登入用户"), 
+	COMMON(2, "普通用户"), 
+	ADMINISTRATOR(3, "管理员"), 
+	ROOT(4, "超级管理员");
 
 	private Integer code;
 
