@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 /build/
 
 /.classpath
@@ -8,3 +9,14 @@
 /*.iml
 /*.txt
 /.fatjar
+=======
+
+JDBC.iml
+*.xml
+*.class
+.idea/workspace.xml
+*.class
+*.class
+/.classpath
+/.project
+>>>>>>> branch 'develop' of https://github.com/chemyoo/JDBC.git
