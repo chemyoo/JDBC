@@ -1,0 +1,10 @@
+/build/
+
+/.classpath
+
+/.project
+
+/*.properties
+/*.iml
+/*.txt
+/.fatjar

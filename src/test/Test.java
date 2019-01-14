@@ -101,7 +101,8 @@ public class Test {
 			HttpClientUtils.dowload("http://www.lanrentuku.com/savepic/img/allimg/1609/5-160914192R2.gif",tempName);
 			//校正名称
 			Desktop.getDesktop().open(com.chemyoo.utils.IOUtils.validateFileName(new File(tempName)));
-			HttpClientUtils.downloadFromInternet("http://download.2345.cc/2345explorer/2345explorer_v9.4.2.17629.up.exe", "D:/2345explorer_v9.4.2.17629.up.exe");
+			HttpClientUtils.downloadFromInternet("https://www.baidu.com", "F:/music/baidu.html");
+			HttpClientUtils.dowload("http://p.gdown.baidu.com/fdd85f511d3ae6e6b47a193f72232489141cf0cf4368df61827f9ec3765252353a979a4c5a9c19688b45ea732fb88cc25e78348250ff4c81e2abef957f93528877608e4405d19cb1e7865a14dda87cd41834029ffaebb7fbdd00f13edcbf48ac7f679ae9aa9eec6bb8420f96f1a4d67c", "F:/music/5146554.apk");
 		} catch (IOException e) {
 			e.printStackTrace();
 		} 

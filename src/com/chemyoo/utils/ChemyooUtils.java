@@ -50,9 +50,9 @@ public class ChemyooUtils {
 	/** 类级锁对象 */
 	private static Object objLock = new Object();
 
-	private static String MAC_ADDR_STR = LocalMac.Mac.getInstanse().replace("-", "");
+	private static final String MAC_ADDR_STR = LocalMac.Mac.getInstanse().replace("-", "");
 
-	private static final long MILLS_OF_DAY = 1000 * 60 * 60 * 24;
+	private static final long MILLS_OF_DAY = 1000 * 60 * 60 * 24L;
 
 	public static final String EMPTY = "";
 
@@ -74,7 +74,7 @@ public class ChemyooUtils {
 	 * @return true or false
 	 */
 	public static <T> boolean isEmpty(Collection<T> collection) {
-		return (collection == null || collection.size() == 0);
+		return (collection == null || collection.isEmpty());
 	}
 
 	/**
@@ -193,8 +193,7 @@ public class ChemyooUtils {
 	 *            第二个日期
 	 */
 	public static long getDiffMills(Date first, Date second) {
-		long mm = first.getTime() - second.getTime();
-		return mm;
+		return first.getTime() - second.getTime();
 	}
 	// /**
 	// * 关闭计算机
@@ -316,10 +315,6 @@ public class ChemyooUtils {
 					list[i].clear();
 					list[i] = null;// 使对象变为游离态
 				}
-				// else if (list[i]!=null)
-				// {
-				// list[i] = null;//使对象变为游离态
-				// }
 			}
 		}
 	}
@@ -336,19 +331,13 @@ public class ChemyooUtils {
 					map[i].clear();
 					map[i] = null;// 使对象变为游离态
 				}
-				// else if(map[i]!=null)
-				// {
-				// map[i] = null;//使对象变为游离态
-				// }
 			}
 		}
 	}
 
-	public static String toString(Object obj) throws ClassNotFoundException {
+	public static String toString(Object obj) {
 		if (obj == null)
 			return "";
-		// Class c = Class.forName(obj.getClass().getName());
-		// return c.cast(obj).toString();
 		return obj.toString();
 	}
 
@@ -368,7 +357,7 @@ public class ChemyooUtils {
 	 *            是否生成带Mac地址的主键
 	 */
 	public static String keyGenerator(boolean flag) {
-		StringBuffer key = new StringBuffer();
+		StringBuilder key = new StringBuilder();
 		synchronized (objLock) {
 			if (flag) {
 				key.append(MAC_ADDR_STR);
@@ -388,14 +377,14 @@ public class ChemyooUtils {
 	/**
 	 * @return a uppercase character
 	 */
-	private static char getUppercaseLetter() {
+	public static char getUppercaseLetter() {
 		return (char) ((int) Math.floor(Math.random() * 26) + 65);
 	}
 
 	/**
 	 * @return a lowercase character
 	 */
-	private static char geLowercaseLetter() {
+	public static char geLowercaseLetter() {
 		return (char) ((int) Math.floor(Math.random() * 26) + 97);
 	}
 
@@ -432,9 +421,6 @@ public class ChemyooUtils {
 	 */
 	public static String getFileContent(InputStream inputStream) {
 		byte[] b = new byte[28];
-		// InputStream is = inputStream;
-		// ReadFileToStream reader = new ReadFileToStream(file);
-		// InputStream is = reader.getInputStream();
 		try {
 			if (inputStream.markSupported()) {
 				inputStream.mark(0);
@@ -652,7 +638,6 @@ public class ChemyooUtils {
 				// 获取标题行
 				int rowNum = sheet.getLastRowNum();
 				Row row;
-				Map<String, Object> mapRow = null;
 				if (rowNum > 1) {
 					row = sheet.getRow(0);
 					title.add("ID");
@@ -752,36 +737,6 @@ public class ChemyooUtils {
 			str.append(n % baseNumber);
 		}
 		return str.reverse().toString();
-	}
-
-	/** 处理EXCEL导出时，IE浏览器文件名乱码的问题 */
-	private void dealMessyCode(HttpServletResponse response, HttpServletRequest request, String fileName) {
-		if (fileName == null) {
-			throw new NullPointerException("文件名称不能为NULL");
-		}
-		if ("".equals(fileName.trim())) {
-			fileName += "未命名";
-		}
-		fileName += TimeUtils.convertDateToString(Calendar.getInstance().getTime(), "yyyy-MM-dd HH.mm");
-		if (!fileName.toLowerCase().endsWith(".xls") && !fileName.toLowerCase().endsWith(".xlsx")) {
-			fileName += ".xlsx";
-		}
-		response.reset();
-		String userAgent = request.getHeader("user-agent");
-		try {
-			// 处理IE浏览器文件名乱码的问题
-			if (userAgent != null && (userAgent.indexOf("Firefox") >= 0 || userAgent.indexOf("Chrome") >= 0
-					|| userAgent.indexOf("Safari") >= 0)) {
-				response.setHeader("Content-Disposition",
-						"attachment;filename=" + new String(fileName.getBytes("utf-8"), "ISO-8859-1"));
-			} else {
-				response.setHeader("Content-Disposition",
-						"attachment;filename=" + new String(fileName.getBytes("GBK"), "ISO-8859-1"));
-			}
-			response.setContentType("application/msexcel");
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
 	}
 
 	public static String encode2UTF8(String str, String oldCharset) {

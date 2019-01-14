@@ -91,13 +91,19 @@ public class HttpClientUtils {
 			int responseCode = httpConnection.getResponseCode();
 			if (responseCode == HttpURLConnection.HTTP_OK) {
 				inputStream = httpConnection.getInputStream();
+				long contentLength = httpConnection.getContentLengthLong();
+				String size = String.format("文件大小%.2fMB，", contentLength * 1F / (1024 * 1024));
 				byte[] b = new byte[28];
+				long count = 0;
 				for(int ch = -1,index = 0;(ch = inputStream.read()) != -1;index ++) {
 					outStream.write(ch);
 					if(index < 28) {
 						b[index] = (byte) ch;
 					}
+					count ++;
+					System.err.println(String.format("下载进度%.2f", count * 100F / contentLength) + "%");
 				}
+				System.err.println(size);
 				fileExt = FileType.getFileType(ChemyooUtils.bytesToHexString(b));
 				outStream.flush();
 			} else {
