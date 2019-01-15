@@ -1,9 +1,9 @@
 package com.chemyoo.connect.pool;
 
-import com.chemyoo.utils.TimeUtils;
-
 import java.sql.Connection;
 import java.util.Date;
+
+import com.chemyoo.utils.TimeUtils;
 
 class ConnectionObject {
 

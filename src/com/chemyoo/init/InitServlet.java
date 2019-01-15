@@ -1,19 +1,22 @@
 package com.chemyoo.init;
 
-import com.chemyoo.connect.pool.ConnectionPoolsManager;
-import com.chemyoo.connect.pool.ConnectionPools;
-import com.chemyoo.utils.LoggerUtils;
-import com.chemyoo.utils.SystemUtils;
-import com.chemyoo.utils.WebRoot;
-
-import org.apache.log4j.Logger;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Properties;
 
 import javax.servlet.ServletConfig;
 import javax.servlet.ServletContext;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
-import java.sql.*;
-import java.util.*;
+
+import org.apache.log4j.Logger;
+
+import com.chemyoo.connect.pool.ConnectionPools;
+import com.chemyoo.connect.pool.ConnectionPoolsManager;
+import com.chemyoo.utils.LoggerUtils;
+import com.chemyoo.utils.SystemUtils;
+import com.chemyoo.utils.WebRoot;
 
 public class InitServlet extends HttpServlet {
 

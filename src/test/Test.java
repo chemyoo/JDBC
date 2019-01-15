@@ -6,32 +6,21 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.io.InputStream;
 import java.io.OutputStream;
-import java.io.UnsupportedEncodingException;
-import java.net.URL;
-import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.io.FileUtils;
-import org.apache.tomcat.util.http.fileupload.IOUtils;
-
 import com.chemyoo.entiry.GeographicCoordinates;
-import com.chemyoo.enums.FileType;
 import com.chemyoo.enums.NumberFormatBase;
 import com.chemyoo.enums.Roles;
-import com.chemyoo.file.ReadLocalFiles;
 import com.chemyoo.pub.SecurityCode;
 import com.chemyoo.utils.ChemyooUtils;
 import com.chemyoo.utils.HttpClientUtils;
 import com.chemyoo.utils.LocationUtils;
 import com.chemyoo.utils.LoggerUtils;
-import com.chemyoo.utils.ReadFileToStream;
 import com.chemyoo.utils.SystemUtils;
 import com.chemyoo.utils.TimeUtils;
 

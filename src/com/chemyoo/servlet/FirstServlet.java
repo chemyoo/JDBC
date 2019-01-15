@@ -7,7 +7,6 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.chemyoo.bean.User;
-import com.chemyoo.connect.pool.ConnectionPoolsManager;
 import com.chemyoo.connect.pool.ConnectionService;
 
 /** 

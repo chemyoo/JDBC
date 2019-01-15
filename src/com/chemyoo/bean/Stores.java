@@ -2,6 +2,7 @@ package com.chemyoo.bean;
 
 import java.io.Serializable;
 import java.util.Date;
+
 import com.chemyoo.annotations.Field;
 import com.chemyoo.annotations.NotField;
 import com.chemyoo.annotations.Table;

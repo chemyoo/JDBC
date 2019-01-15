@@ -11,10 +11,6 @@ import javax.swing.JFileChooser;
 import javax.swing.filechooser.FileFilter;
 import javax.swing.filechooser.FileSystemView;
 
-import org.apache.commons.io.FileUtils;
-
-import com.chemyoo.enums.FileType;
-import com.chemyoo.utils.ChemyooUtils;
 import com.chemyoo.utils.LoggerUtils;
 import com.chemyoo.utils.ReadFileToStream;
 

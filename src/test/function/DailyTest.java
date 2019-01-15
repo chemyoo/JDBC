@@ -1,26 +1,12 @@
 package test.function;
 
 import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.StringReader;
 import java.util.Set;
 
-import javax.xml.parsers.DocumentBuilder;
-import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-
-import org.apache.commons.io.IOUtils;
-import org.w3c.dom.Document;
-import org.xml.sax.InputSource;
-import org.xml.sax.SAXException;
-
 import com.chemyoo.file.ReadLocalFiles;
-import com.chemyoo.utils.HttpClientUtils;
 import com.chemyoo.utils.JsonUtils;
 import com.chemyoo.utils.LoggerUtils;
 import com.chemyoo.utils.PropertiesUtil;
-import com.chemyoo.utils.ReadFileToStream;
 import com.chemyoo.utils.SystemUtils;
 
 import net.sf.json.JSONArray;

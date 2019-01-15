@@ -2,8 +2,11 @@ package com.chemyoo.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+
 import org.apache.log4j.Logger;
+
 import com.chemyoo.entiry.GeographicCoordinates;
+
 import net.sf.json.JSONArray;
 import net.sf.json.JSONObject;
 
