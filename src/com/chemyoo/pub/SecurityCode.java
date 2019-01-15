@@ -9,12 +9,11 @@ package com.chemyoo.pub;
 public class SecurityCode {
 
 	private SecurityCode() {
-	};
+	}
 
-	public synchronized static String encrypt(String codestr) {
-		char[] letter = { 'o', 'p', 'A', 'B', 'C', 'u', 'v', 'w', 'x', 'D', 'G', 'E', 'g', 'F', 'I', 'i', 'j', 'H', 'Q',
-				'h', 'k', 'l', 'm', 'J', 'K', 'L', 'P', 'n', 'M', 'N', 'O', 'R', 'S', 'T', 'q', 'r', 'U', 'V', 'W', 'd',
-				'e', 'f', 'X', 'Y', 'Z', 'a', 'b', 'c', 's', 't', 'y', 'z' };
+	public static synchronized String encrypt(String codestr) {
+		char[] letter = {'A', 'B', 'C','D', 'G', 'E', 'F', 'I','H', 'Q','J',
+				'K', 'L', 'P', 'M', 'N', 'O', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
 		StringBuffer strbuff = new StringBuffer("");
 		if (!emptyString(codestr)) {
 			int length = codestr.length();
@@ -31,7 +30,7 @@ public class SecurityCode {
 			int size = letter.length;
 			int i = 0;
 			for (; i < length; i++) {
-				int c = codestr.codePointAt(i) >> ((i + 1) % 7);
+				int c = (codestr.codePointAt(i) >> ((i + 1) % 7)) % 100;
 				strbuff.append(c);
 				if (i == 0)
 					strbuff.append(letter[seed]);
@@ -40,7 +39,7 @@ public class SecurityCode {
 				else if (i % 3 == 2)
 					strbuff.append(letter[i + 1 <= size ? i : ((i + 1) % size)]);
 				else
-					strbuff.append(codestr.charAt(i >> 2 > length ? i : i >> 1));
+					strbuff.append(codestr.codePointAt(i >> 2 > length ? i : i >> 1) % 100);
 			}
 		}
 		return strbuff.toString();
@@ -67,5 +66,8 @@ public class SecurityCode {
 		for(int i = 0; i < 26; i++) {
 			System.err.println((char)(65+i)+":" + SecurityCode.encrypt("" + (char)(65+i)));
 		}
+		System.err.println(SecurityCode.encrypt("fhafr8efnsvn"));
+		// 4H490F2F305E2E001Q6Q903L1L
+		// 4J490S2S305C2C001K6K903N1N42
 	}
 }
