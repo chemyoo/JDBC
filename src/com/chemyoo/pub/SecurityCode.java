@@ -14,7 +14,7 @@ public class SecurityCode {
 	public static synchronized String encrypt(String codestr) {
 		char[] letter = {'A', 'B', 'C','D', 'G', 'E', 'F', 'I','H', 'Q','J',
 				'K', 'L', 'P', 'M', 'N', 'O', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z'};
-		StringBuffer strbuff = new StringBuffer("");
+		StringBuilder strbuff = new StringBuilder("");
 		if (!emptyString(codestr)) {
 			int length = codestr.length();
 			int sum = 0;
@@ -62,12 +62,4 @@ public class SecurityCode {
 		return (str == null || str.trim().isEmpty());
 	}
 	
-	public static void main(String[] args) {
-		for(int i = 0; i < 26; i++) {
-			System.err.println((char)(65+i)+":" + SecurityCode.encrypt("" + (char)(65+i)));
-		}
-		System.err.println(SecurityCode.encrypt("fhafr8efnsvn"));
-		// 4H490F2F305E2E001Q6Q903L1L
-		// 4J490S2S305C2C001K6K903N1N42
-	}
 }
