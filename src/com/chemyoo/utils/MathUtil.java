@@ -120,6 +120,7 @@ public class MathUtil {
 			data.add(p);
 		}
 		lineFitting(data);
+		System.err.println(combination(9,2).multiply(permutation(4,2)));
 	}
 	
 }
