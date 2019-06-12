@@ -8,6 +8,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Scanner;
 
+/**
+ * windows 环境
+ * @author n_soul
+ *
+ */
 public class GetWiFiPassWord {
 	/**
 	 * @param commandStr
@@ -61,6 +66,7 @@ public class GetWiFiPassWord {
 				System.err.println("WIFI密码:" + passworld.trim());// trim()去掉多余的空白符
 			}
 		}
+		scanner.close();
 	}
 
 	public static String getWiFiMap(String result) throws FileNotFoundException {
@@ -96,7 +102,7 @@ public class GetWiFiPassWord {
 		} catch (Exception e) {
 			// ignore
 		}
-
+		scanner.close();
 		return buff.toString();
 	}
 
@@ -123,6 +129,7 @@ public class GetWiFiPassWord {
 		} catch (Exception e) {
 			// 不做处理，这里是为了让程序能运行下去
 		}
+		scanner.close();
 		return WiFiNameList;
 	}
 
