@@ -5,7 +5,6 @@ import java.io.FileNotFoundException;
 import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.Scanner;
 
 /**
@@ -75,7 +74,6 @@ public class GetWiFiPassWord {
 		String wifi;
 		String passworld;
 		StringBuilder buff = new StringBuilder();
-		HashMap<String, String> WiFiMap = new HashMap<String, String>();
 		try {
 			/*
 			 * 接口 WLAN 上的配置文件 哦: --->WiFi名是哦,位于"接口 WLAN 上的配置文件"这句话和冒号之间
@@ -163,6 +161,6 @@ public class GetWiFiPassWord {
 		}
 		// 恢复到原来的标准输出流
 		System.setOut(out);
-		System.out.println("以生成WiFi密码文件,路径:.\\所有连过的WiFi密码.txt");
+		System.out.println("已生成WiFi密码文件,路径:.\\所有连过的WiFi密码.txt");
 	}
 }
